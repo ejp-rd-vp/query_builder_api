@@ -1,7 +1,7 @@
 # Query Builder API
 
 This project focusses on the query builder API. 
-It will build upon the OpenAPI (https://www.openapis.org/) specification as a reference for building the catalogue APIs.
+It will build upon the OpenAPI specification (http://spec.openapis.org/oas/v3.0.3) as a reference for building the catalogue APIs.
 
 ## Helpful Tools
 
