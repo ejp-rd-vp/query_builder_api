@@ -10,6 +10,8 @@ It will build upon the OpenAPI (https://www.openapis.org/) specification as a re
   - Swagger Editor (https://swagger.io/tools/swagger-editor/) can be used to build valid API calls.
   - Swagger Inspector (https://inspector.swagger.io/builder) is a browser extension that can be used to validate API calls.
   
+- OpenAPI Examples can be found here https://github.com/OAI/OpenAPI-Specification/tree/master/examples.
+  
 ## Query Structure
 
 ## Result Structure
