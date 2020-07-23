@@ -218,19 +218,19 @@ components:
     DataResponse:
       type: object
       required:
-        - beaconId
+        - apiId
       properties:
-        beaconId:
-          description: "Identifier of the beacon, as defined in `Beacon`."
+        apiId:
+          description: "Identifier of the API, as defined in InfoResponse."
           type: string
         apiVersion:
           description: >-
             Version of the API. If specified, the value must match `apiVersion`
-            in Beacon
+            in InfoResponse
           type: string
         exists:
           description: >-
-            Indicator of whether the given allele was observed in any of the
+            Indicator of whether the given request was observed in any of the
             datasets queried. This should be non-null, unless there was an
             error, in which case `error` has to be non-null.
           type: boolean
@@ -255,66 +255,6 @@ components:
       properties:
         referenceName:
           $ref: "#/components/schemas/Dataset"
-        start:
-          description: |
-            Precise start coordinate position, allele locus (0-based, inclusive).
-            * start only:
-              - for single positions, e.g. the start of a specified sequence alteration where the size is given through the specified alternateBases
-              - typical use are queries for SNV and small InDels
-              - the use of "start" without an "end" parameter requires the use of "referenceBases"
-            * start and end:
-              - special use case for exactly determined structural changes
-          type: integer
-          format: int64
-          minimum: 0
-        end:
-          description: Precise end coordinate (0-based, exclusive). See start.
-          type: integer
-        startMin:
-          description: |
-            Minimum start coordinate
-            * startMin + startMax + endMin + endMax
-              - for querying imprecise positions (e.g. identifying all structural variants starting anywhere between startMin <-> startMax, and ending anywhere between endMin <-> endMax)
-              - single or double sided precise matches can be achieved by setting startMin = startMax XOR endMin = endMax
-          type: integer
-        startMax:
-          description: Maximum start coordinate. See startMin.
-          type: integer
-        endMin:
-          description: Minimum end coordinate. See startMin.
-          type: integer
-        endMax:
-          description: Maximum end coordinate. See startMin.
-          type: integer
-        referenceBases:
-          description: >
-            Reference bases for this variant (starting from `start`). Accepted
-            values: [ACGT]*
-              When querying for variants without specific base alterations (e.g. imprecise structural variants with separate variant_type as well as start_min & end_min ... parameters), the use of a single "N" value is required.
-          type: string
-          pattern: "^([ACGT]+|N)$"
-        alternateBases:
-          description: >
-            The bases that appear instead of the reference bases. Accepted
-            values: [ACGT]* or N.
-            Symbolic ALT alleles (DEL, INS, DUP, INV, CNV, DUP:TANDEM, DEL:ME,
-            INS:ME) will be represented in `variantType`.
-            Optional: either `alternateBases` or `variantType` is required.
-          type: string
-          pattern: "^([ACGT]+|N)$"
-        variantType:
-          description: >
-            The `variantType` is used to denote e.g. structural variants.
-            Examples:
-            * DUP: duplication of sequence following `start`; not necessarily in
-            situ
-            * DEL: deletion of sequence following `start`
-            Optional: either `alternateBases` or `variantType` is required.
-          type: string
-        assemblyId:
-          description: "Assembly identifier (GRC notation, e.g. `GRCh37`)."
-          type: string
-          example: GRCh38
         datasetIds:
           description: >-
             Identifiers of datasets, as defined in `BeaconDataset`. If this
@@ -335,7 +275,7 @@ components:
             - MISS
             - NONE  
     Organization:
-      description: Organization owning the beacon.
+      description: Organization owning the API.
       type: object
       required:
         - id
@@ -389,36 +329,17 @@ components:
         description:
           type: string
           description: Description of the dataset.
-        assemblyId:
-          description: "Assembly identifier (GRC notation, e.g. `GRCh37`)."
-          type: string
-          example: GRCh38
         createDateTime:
           type: string
           description: The time the dataset was created (ISO 8601 format).
           example: "2012-07-29 or 2017-01-17T20:33:40Z"
         updateDateTime:
           type: string
-          description: The time the dataset was updated in (ISO 8601 format).
+          description: The time the dataset was last updated (ISO 8601 format).
           example: "2012-07-19 or 2017-01-17T20:33:40Z"
         version:
           type: string
           description: Version of the dataset.
-        variantCount:
-          type: integer
-          format: int64
-          description: Total number of variants in the dataset.
-          minimum: 0
-        callCount:
-          type: integer
-          format: int64
-          description: Total number of calls in the dataset.
-          minimum: 0
-        sampleCount:
-          type: integer
-          format: int64
-          description: Total number of samples in the dataset.
-          minimum: 0
         externalUrl:
           type: string
           description: >-
