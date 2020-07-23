@@ -1,0 +1,453 @@
+openapi: "3.0.0"
+servers: 
+  - url: "https://erdri.dor/queryAPI/v1/"
+info:
+  version: "1.0"
+  title: "ERDRI.dor Query API Specification"
+  description: >-
+    "The ERDRI.dor query API is a web service for rare disease data sharing that can be queried for information about specific rare disease data registries."
+  contact:
+    name: "Magic Mike"
+    email: "someone@erdri.dor"
+  #license:
+    #name: "Apache 2.0"
+    #url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+externalDocs:
+  description: "ERDRI.dor Website"
+  url: "https://eu-rd-platform.jrc.ec.europa.eu/erdri-description_de"
+paths:
+  /: 
+    get:
+      description: "Get information about the ERDRI.dor query API."
+      operationId: "getInformation"
+      responses:
+        "200":
+          description: "successful operation"
+          headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InfoResponse"
+        "404":
+          description: "not found"
+          headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        default:
+          description": "unexpected error"
+          headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /v1:
+    get: 
+      description: "Get information about version 1.0 of the ERDRI.dor query API."
+      operationId": "getV1Information",
+      responses": 
+        "200":
+          description: "successful operation"
+          headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InfoResponse"
+        "404":
+          description: "not found"
+          headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+        default:
+          description": "unexpected error"
+          headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+  /query:
+    get:
+      description: "Get response to a query for a certain rare disease (datasets)."
+      operationId: "getDataRequest"
+      parameters:
+        - name: referenceName
+          description: "Reference name of the disease. 
+          Accepting strings on a certain naming convention basis."
+          in: query
+          required: true
+          schema:
+            $ref: "#/components/schemas/Disease"
+        - name: datasetIds
+          description: >-
+            Identifiers of datasets, as defined in "ERDRIDataset". If this
+            field is null/not specified, all datasets should be queried.
+          in: query
+          required: false
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+        - name: includeDatasetResponses
+          description: >
+            Indicator of whether responses for individual datasets
+            (datasetAlleleResponses) should be included in the response
+            (BeaconAlleleResponse) to this request or not.
+            If null (not specified), the default value of NONE is assumed.
+          in: query
+          required: false
+          schema:
+            type: string
+            enum:
+              - ALL
+              - HIT
+              - MISS
+              - NONE
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/DataResponse"
+        "400":
+          description: Bad request (e.g. missing mandatory parameter)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: >-
+            Unauthorised (e.g. when an unauthenticated user tries to access a
+            protected resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: >-
+            Forbidden (e.g. the resource is protected for all users or the user
+            is authenticated but s/he is not granted for this resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: "not found"
+          headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        default:
+          description": "unexpected error"
+          headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+components:
+  schemas:
+    InfoResponse:
+      type: object
+      required:
+        - id
+        - name
+        - apiVersion
+        - organization
+        - datasets
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the API. Use reverse domain name notation.
+          example: org.ga4gh.api
+        name:
+          type: string
+          description: Name of the API.
+        apiVersion:
+          type: string
+          description: Version of the API provided.
+          example: v0.3
+        organization:
+          $ref: "#/components/schemas/Organization"
+        description:
+          type: string
+          description: Description of the API.
+        createDateTime:
+          type: string
+          description: The time the API was created (ISO 8601 format).
+          example: "2012-07-19 or 2017-01-17T20:33:40Z"
+        updateDateTime:
+          type: string
+          description: The time the API was last updated (ISO 8601 format).
+          example: "2012-07-19 or 2017-01-17T20:33:40Z"
+        datasets:
+          description: >-
+            Dataset(s) served by the API.
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Dataset"
+        sampleRequests:
+          description: >-
+            Examples of interesting queries, e.g. a few queries demonstrating
+            different responses.
+          type: array
+          items:
+            $ref: "#/components/schemas/Request"
+        #info:
+          #description: "Additional structured metadata, key-value pairs."
+          #type: array
+          #items:
+            #$ref: "#/components/schemas/KeyValuePair"
+    ErrorResponse:
+      type: "object"
+      required: 
+        - code 
+        - message
+      properties:
+        code: 
+          type: integer
+          format: int32
+          message: 
+            type: string
+    DataResponse:
+      type: object
+      required:
+        - beaconId
+      properties:
+        beaconId:
+          description: "Identifier of the beacon, as defined in `Beacon`."
+          type: string
+        apiVersion:
+          description: >-
+            Version of the API. If specified, the value must match `apiVersion`
+            in Beacon
+          type: string
+        exists:
+          description: >-
+            Indicator of whether the given allele was observed in any of the
+            datasets queried. This should be non-null, unless there was an
+            error, in which case `error` has to be non-null.
+          type: boolean
+        request:
+          $ref: "#/components/schemas/DataRequest"
+        datasetResponses:
+          description: >-
+            Indicator of whether the given allele was  observed in individual
+            datasets. This should be non-null if `includeDatasetResponses` in
+            the corresponding `BeaconAlleleRequest` is true, and null otherwise.
+          type: array
+          items:
+            $ref: "#/components/schemas/Dataset"
+        error:
+          $ref: "#/components/schemas/ErrorResponse"
+    DataRequest:
+      description: Request as interpreted by the API.
+      type: object
+      required:
+        - referenceName
+        - referenceBases
+      properties:
+        referenceName:
+          $ref: "#/components/schemas/Dataset"
+        start:
+          description: |
+            Precise start coordinate position, allele locus (0-based, inclusive).
+            * start only:
+              - for single positions, e.g. the start of a specified sequence alteration where the size is given through the specified alternateBases
+              - typical use are queries for SNV and small InDels
+              - the use of "start" without an "end" parameter requires the use of "referenceBases"
+            * start and end:
+              - special use case for exactly determined structural changes
+          type: integer
+          format: int64
+          minimum: 0
+        end:
+          description: Precise end coordinate (0-based, exclusive). See start.
+          type: integer
+        startMin:
+          description: |
+            Minimum start coordinate
+            * startMin + startMax + endMin + endMax
+              - for querying imprecise positions (e.g. identifying all structural variants starting anywhere between startMin <-> startMax, and ending anywhere between endMin <-> endMax)
+              - single or double sided precise matches can be achieved by setting startMin = startMax XOR endMin = endMax
+          type: integer
+        startMax:
+          description: Maximum start coordinate. See startMin.
+          type: integer
+        endMin:
+          description: Minimum end coordinate. See startMin.
+          type: integer
+        endMax:
+          description: Maximum end coordinate. See startMin.
+          type: integer
+        referenceBases:
+          description: >
+            Reference bases for this variant (starting from `start`). Accepted
+            values: [ACGT]*
+              When querying for variants without specific base alterations (e.g. imprecise structural variants with separate variant_type as well as start_min & end_min ... parameters), the use of a single "N" value is required.
+          type: string
+          pattern: "^([ACGT]+|N)$"
+        alternateBases:
+          description: >
+            The bases that appear instead of the reference bases. Accepted
+            values: [ACGT]* or N.
+            Symbolic ALT alleles (DEL, INS, DUP, INV, CNV, DUP:TANDEM, DEL:ME,
+            INS:ME) will be represented in `variantType`.
+            Optional: either `alternateBases` or `variantType` is required.
+          type: string
+          pattern: "^([ACGT]+|N)$"
+        variantType:
+          description: >
+            The `variantType` is used to denote e.g. structural variants.
+            Examples:
+            * DUP: duplication of sequence following `start`; not necessarily in
+            situ
+            * DEL: deletion of sequence following `start`
+            Optional: either `alternateBases` or `variantType` is required.
+          type: string
+        assemblyId:
+          description: "Assembly identifier (GRC notation, e.g. `GRCh37`)."
+          type: string
+          example: GRCh38
+        datasetIds:
+          description: >-
+            Identifiers of datasets, as defined in `BeaconDataset`. If this
+            field is null/not specified, all datasets should be queried.
+          type: array
+          items:
+            type: string
+        includeDatasetResponses:
+          description: >-
+            Indicator of whether responses for individual datasets
+            (datasetAlleleResponses) should be included in the response
+            (BeaconAlleleResponse) to this request or not. If null (not
+            specified), the default value of NONE is assumed.
+          type: string
+          enum:
+            - ALL
+            - HIT
+            - MISS
+            - NONE  
+    Organization:
+      description: Organization owning the beacon.
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the organization.
+        name:
+          type: string
+          description: Name of the organization.
+        description:
+          type: string
+          description: Description of the organization.
+        address:
+          type: string
+          description: Address of the organization.
+        welcomeUrl:
+          type: string
+          description: URL of the website of the organization (RFC 3986 format).
+        contactUrl:
+          type: string
+          description: >-
+            URL with the contact for the beacon operator/maintainer, e.g. link
+            to a contact form (RFC 3986 format) or an email (RFC 2368 format).
+        logoUrl:
+          type: string
+          description: >-
+            URL to the logo (PNG/JPG format) of the organization (RFC 3986
+            format).
+        info:
+          description: "Additional structured metadata, key-value pairs."
+          type: array
+          items:
+            $ref: "#/components/schemas/KeyValuePair"
+    Dataset:
+      type: object
+      required:
+        - id
+        - name
+        - assemblyId
+        - createDateTime
+        - updateDateTime
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the dataset.
+        name:
+          type: string
+          description: Name of the dataset.
+        description:
+          type: string
+          description: Description of the dataset.
+        assemblyId:
+          description: "Assembly identifier (GRC notation, e.g. `GRCh37`)."
+          type: string
+          example: GRCh38
+        createDateTime:
+          type: string
+          description: The time the dataset was created (ISO 8601 format).
+          example: "2012-07-29 or 2017-01-17T20:33:40Z"
+        updateDateTime:
+          type: string
+          description: The time the dataset was updated in (ISO 8601 format).
+          example: "2012-07-19 or 2017-01-17T20:33:40Z"
+        version:
+          type: string
+          description: Version of the dataset.
+        variantCount:
+          type: integer
+          format: int64
+          description: Total number of variants in the dataset.
+          minimum: 0
+        callCount:
+          type: integer
+          format: int64
+          description: Total number of calls in the dataset.
+          minimum: 0
+        sampleCount:
+          type: integer
+          format: int64
+          description: Total number of samples in the dataset.
+          minimum: 0
+        externalUrl:
+          type: string
+          description: >-
+            URL to an external system providing more dataset information (RFC
+            3986 format).
+          example: "http://example.org/wiki/Main_Page"
+        info:
+          description: "Additional structured metadata, key-value pairs."
+          type: array
+          items:
+            $ref: "#/components/schemas/KeyValuePair"
+        dataUseConditions:
+          $ref: "#/components/schemas/DataUseConditions"
+    KeyValuePair:
+      type: object
+      required:
+        - key
+        - value
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    DataUseConditions:
+      type: object
+      required:
+        - consentCodeDataUse
+      description: Data use conditions ruling this dataset.
+      properties:
+        consentCodeDataUse:
+          $ref: >-
+            https://raw.githubusercontent.com/ga4gh/ga4gh-consent-policy/806ea53cffacb2055c3639f0fc9783f0dcd8cb02/consent_code.yaml#/components/schemas/ConsentCodeDataUse
