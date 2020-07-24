@@ -1,11 +1,12 @@
-openapi: "3.0.0"
+ openapi: "3.0.0"
 servers: 
   - url: "https://erdri.dor/queryAPI/v1/"
 info:
   version: "1.0"
   title: "ERDRI.dor Query API Specification"
   description: >-
-    "The ERDRI.dor query API is a web service for rare disease data sharing that can be queried for information about specific rare disease data registries."
+    "The ERDRI.dor query API is a web service for rare disease data sharing 
+    that can be queried for information about specific rare disease data registries."
   contact:
     name: "Magic Mike"
     email: "someone@erdri.dor"
@@ -78,6 +79,12 @@ paths:
           Accepting strings on a certain naming convention basis."
           in: query
           required: true
+          schema:
+            $ref: "#/components/schemas/Disease"
+        - name: orphaCode
+          description: "The orphacode of the disease."
+          in: query
+          required: "false"
           schema:
             $ref: "#/components/schemas/Disease"
         - name: datasetIds
