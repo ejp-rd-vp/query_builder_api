@@ -198,7 +198,7 @@ components:
             different responses.
           type: array
           items:
-            $ref: "#/components/schemas/Request"
+            $ref: "#/components/schemas/DataRequest"
         #info:
           #description: "Additional structured metadata, key-value pairs."
           #type: array
