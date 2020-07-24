@@ -82,7 +82,7 @@ paths:
             $ref: "#/components/schemas/Disease"
         - name: datasetIds
           description: >-
-            Identifiers of datasets, as defined in "ERDRIDataset". If this
+            Identifiers of datasets, as defined in "Dataset". If this
             field is null/not specified, all datasets should be queried.
           in: query
           required: false
