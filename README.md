@@ -14,4 +14,4 @@ It will build upon the [OpenAPI specification](http://spec.openapis.org/oas/v3.0
 
 ## Specification
 
-The [specification](https://github.com/ejp-rd-vp/query_builder_api/edit/master/specification.yaml "https://github.com/ejp-rd-vp/query_builder_api/edit/master/specification.yaml") is a first proposal oriented towards the [Beacon-v1 API specification](https://github.com/ga4gh-beacon/specification/blob/master/beacon.md "https://github.com/ga4gh-beacon/specification/blob/master/beacon.md") which is again oriented towards the [OpenAPI specification](http://spec.openapis.org/oas/v3.0.3 "http://spec.openapis.org/oas/v3.0.3").
+- [Draft Specification v0.1](https://github.com/ejp-rd-vp/query_builder_api/edit/master/specification.yaml "https://github.com/ejp-rd-vp/query_builder_api/edit/master/specification.yaml") is a first proposal oriented towards the [Beacon-v1 API specification](https://github.com/ga4gh-beacon/specification/blob/master/beacon.md "https://github.com/ga4gh-beacon/specification/blob/master/beacon.md") which is again oriented towards the [OpenAPI specification](http://spec.openapis.org/oas/v3.0.3 "http://spec.openapis.org/oas/v3.0.3").
