@@ -35,14 +35,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/ErrorResponse"
         default:
           description": "unexpected error"
           headers:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/ErrorResponse"
   /v1:
     get: 
       description: "Get information about version 1.0 of the ERDRI.dor query API."
@@ -61,14 +61,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/ErrorResponse"
         default:
           description": "unexpected error"
           headers:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/ErrorResponse"
   /query:
     get:
       description: "Get response to a query for a certain rare disease (datasets)."
@@ -80,13 +80,16 @@ paths:
           in: query
           required: true
           schema:
-            $ref: "#/components/schemas/Disease"
+            name:
+              type: string
         - name: orphaCode
           description: "The orphacode of the disease."
           in: query
           required: "false"
           schema:
-            $ref: "#/components/schemas/Disease"
+            code:
+              type: integer
+              format: int32
         - name: datasetIds
           description: >-
             Identifiers of datasets, as defined in "Dataset". If this
@@ -156,7 +159,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/ErrorResponse"
 components:
   schemas:
     InfoResponse:
@@ -264,7 +267,7 @@ components:
           $ref: "#/components/schemas/Dataset"
         datasetIds:
           description: >-
-            Identifiers of datasets, as defined in `BeaconDataset`. If this
+            Identifiers of datasets, as defined in "Dataset". If this
             field is null/not specified, all datasets should be queried.
           type: array
           items:
