@@ -223,8 +223,8 @@ components:
         code: 
           type: integer
           format: int32
-          message: 
-            type: string
+        message: 
+          type: string
     DataResponse:
       type: object
       required:
