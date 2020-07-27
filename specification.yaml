@@ -92,8 +92,8 @@ paths:
               format: int32
         - name: datasetIds
           description: >-
-            Identifiers of datasets, as defined in "Dataset". If this
-            field is null/not specified, all datasets should be queried.
+            Identifiers of ressources, as defined in "Resource". If this
+            field is null/not specified, all ressources should be queried.
           in: query
           required: false
           explode: true
@@ -101,9 +101,9 @@ paths:
             type: array
             items:
               type: string
-        - name: includeDatasetResponses
+        - name: includeResourceResponses
           description: >
-            Indicator of whether responses for individual datasets
+            Indicator of whether responses for individual resources
             (datasetAlleleResponses) should be included in the response
             (BeaconAlleleResponse) to this request or not.
             If null (not specified), the default value of NONE is assumed.
@@ -197,11 +197,11 @@ components:
           example: "2012-07-19 or 2017-01-17T20:33:40Z"
         datasets:
           description: >-
-            Dataset(s) served by the API.
+            Resource(s) served by the API.
           minItems: 1
           type: array
           items:
-            $ref: "#/components/schemas/Dataset"
+            $ref: "#/components/schemas/Resource"
         sampleRequests:
           description: >-
             Examples of interesting queries, e.g. a few queries demonstrating
@@ -249,11 +249,11 @@ components:
         datasetResponses:
           description: >-
             Indicator of whether the given allele was  observed in individual
-            datasets. This should be non-null if `includeDatasetResponses` in
+            datasets. This should be non-null if `includeResourceResponses` in
             the corresponding `BeaconAlleleRequest` is true, and null otherwise.
           type: array
           items:
-            $ref: "#/components/schemas/Dataset"
+            $ref: "#/components/schemas/Resource"
         error:
           $ref: "#/components/schemas/ErrorResponse"
     DataRequest:
@@ -264,15 +264,15 @@ components:
         - referenceBases
       properties:
         referenceName:
-          $ref: "#/components/schemas/Dataset"
+          $ref: "#/components/schemas/Resource"
         datasetIds:
           description: >-
-            Identifiers of datasets, as defined in "Dataset". If this
+            Identifiers of datasets, as defined in "Resource". If this
             field is null/not specified, all datasets should be queried.
           type: array
           items:
             type: string
-        includeDatasetResponses:
+        includeResourceResponses:
           description: >-
             Indicator of whether responses for individual datasets
             (datasetAlleleResponses) should be included in the response
@@ -321,24 +321,30 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/KeyValuePair"
-    Dataset:
+    Resource:
       type: object
       required:
         - id
         - name
-        - assemblyId
+        - description
+        - url
         - createDateTime
         - updateDateTime
       properties:
         id:
           type: string
-          description: Unique identifier of the dataset.
+          description: Unique identifier of the ressource.
         name:
           type: string
-          description: Name of the dataset.
+          description: Name of the ressource.
         description:
           type: string
           description: Description of the dataset.
+        url:
+          type: string
+          description: >-
+            URL to the ressource.
+          example: "http://example.org/wiki/Main_Page"
         createDateTime:
           type: string
           description: The time the dataset was created (ISO 8601 format).
@@ -349,13 +355,7 @@ components:
           example: "2012-07-19 or 2017-01-17T20:33:40Z"
         version:
           type: string
-          description: Version of the dataset.
-        externalUrl:
-          type: string
-          description: >-
-            URL to an external system providing more dataset information (RFC
-            3986 format).
-          example: "http://example.org/wiki/Main_Page"
+          description: Version of the ressource.      
         info:
           description: "Additional structured metadata, key-value pairs."
           type: array
