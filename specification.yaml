@@ -71,8 +71,8 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
   /query:
     get:
-      description: "Get response to a query for a certain rare disease (datasets)."
-      operationId: "getDataRequest"
+      description: "Get response to a query for a certain rare disease (resources)."
+      operationId: "getRecourceRequest"
       parameters:
         - name: referenceName
           description: "Reference name of the disease. 
@@ -90,9 +90,9 @@ paths:
             code:
               type: integer
               format: int32
-        - name: datasetIds
+        - name: resourceIds
           description: >-
-            Identifiers of ressources, as defined in "Resource". If this
+            Identifiers of resources, as defined in "Resource". If this
             field is null/not specified, all ressources should be queried.
           in: query
           required: false
@@ -101,21 +101,6 @@ paths:
             type: array
             items:
               type: string
-        - name: includeResourceResponses
-          description: >
-            Indicator of whether responses for individual resources
-            (datasetAlleleResponses) should be included in the response
-            (BeaconAlleleResponse) to this request or not.
-            If null (not specified), the default value of NONE is assumed.
-          in: query
-          required: false
-          schema:
-            type: string
-            enum:
-              - ALL
-              - HIT
-              - MISS
-              - NONE
       responses:
         "200":
           description: successful operation
@@ -169,7 +154,7 @@ components:
         - name
         - apiVersion
         - organization
-        - datasets
+        - resources
       properties:
         id:
           type: string
@@ -195,7 +180,7 @@ components:
           type: string
           description: The time the API was last updated (ISO 8601 format).
           example: "2012-07-19 or 2017-01-17T20:33:40Z"
-        datasets:
+        resources:
           description: >-
             Resource(s) served by the API.
           minItems: 1
@@ -241,15 +226,15 @@ components:
         exists:
           description: >-
             Indicator of whether the given request was observed in any of the
-            datasets queried. This should be non-null, unless there was an
+            resources queried. This should be non-null, unless there was an
             error, in which case `error` has to be non-null.
           type: boolean
         request:
           $ref: "#/components/schemas/DataRequest"
-        datasetResponses:
+        resourceResponses:
           description: >-
             Indicator of whether the given allele was  observed in individual
-            datasets. This should be non-null if `includeResourceResponses` in
+            resources. This should be non-null if `includeResourceResponses` in
             the corresponding `BeaconAlleleRequest` is true, and null otherwise.
           type: array
           items:
@@ -265,25 +250,13 @@ components:
       properties:
         referenceName:
           $ref: "#/components/schemas/Resource"
-        datasetIds:
+        resourceIds:
           description: >-
-            Identifiers of datasets, as defined in "Resource". If this
-            field is null/not specified, all datasets should be queried.
+            Identifiers of resources, as defined in "Resource". If this
+            field is null/not specified, all resources should be queried.
           type: array
           items:
             type: string
-        includeResourceResponses:
-          description: >-
-            Indicator of whether responses for individual datasets
-            (datasetAlleleResponses) should be included in the response
-            (BeaconAlleleResponse) to this request or not. If null (not
-            specified), the default value of NONE is assumed.
-          type: string
-          enum:
-            - ALL
-            - HIT
-            - MISS
-            - NONE  
     Organization:
       description: Organization owning the API.
       type: object
@@ -339,7 +312,7 @@ components:
           description: Name of the ressource.
         description:
           type: string
-          description: Description of the dataset.
+          description: Description of the resource.
         url:
           type: string
           description: >-
@@ -347,11 +320,11 @@ components:
           example: "http://example.org/wiki/Main_Page"
         createDateTime:
           type: string
-          description: The time the dataset was created (ISO 8601 format).
+          description: The time the resource was created (ISO 8601 format).
           example: "2012-07-29 or 2017-01-17T20:33:40Z"
         updateDateTime:
           type: string
-          description: The time the dataset was last updated (ISO 8601 format).
+          description: The time the resource was last updated (ISO 8601 format).
           example: "2012-07-19 or 2017-01-17T20:33:40Z"
         version:
           type: string
@@ -377,7 +350,7 @@ components:
       type: object
       required:
         - consentCodeDataUse
-      description: Data use conditions ruling this dataset.
+      description: Data use conditions ruling this resource.
       properties:
         consentCodeDataUse:
           $ref: >-
