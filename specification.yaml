@@ -86,8 +86,7 @@ paths:
           in: query
           required: false
           schema:
-            type: integer
-            format: int32
+            type: string
         - name: medAreas
           description: >-
             The medical areas of the desired resource. If this
@@ -235,9 +234,8 @@ components:
           description: The reference name of the resource (disease name).
           type: string
         orphaCode:
-          description: The orphacode of the disease.
-          type: integer
-          format: int32
+          description: "The orphacode of the disease."
+          type: string
         medArea:
           description: >-
             Medical area of the desired resource. If this field is null/not specified, 
