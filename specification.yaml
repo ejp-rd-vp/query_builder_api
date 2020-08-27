@@ -154,7 +154,7 @@ components:
         - name
         - apiVersion
         - organization
-        - resources
+        - description
       properties:
         id:
           type: string
