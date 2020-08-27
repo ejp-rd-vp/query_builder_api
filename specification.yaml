@@ -219,44 +219,16 @@ components:
           description: "Identifier of the API, as defined in InfoResponse."
           type: string
         apiVersion:
-          description: >-
-            Version of the API. If specified, the value must match `apiVersion`
-            in InfoResponse
+          description: Version of the API. If specified, the value must match `apiVersion`
+            in InfoResponse.
           type: string
-        exists:
-          description: >-
-            Indicator of whether the given request was observed in any of the
-            resources queried. This should be non-null, unless there was an
-            error, in which case `error` has to be non-null.
-          type: boolean
-        request:
-          $ref: "#/components/schemas/DataRequest"
         resourceResponses:
-          description: >-
-            Indicator of whether the given allele was  observed in individual
-            resources. This should be non-null if `includeResourceResponses` in
-            the corresponding `BeaconAlleleRequest` is true, and null otherwise.
+          description: The resource results.
           type: array
           items:
             $ref: "#/components/schemas/Resource"
         error:
           $ref: "#/components/schemas/ErrorResponse"
-    DataRequest:
-      description: Request as interpreted by the API.
-      type: object
-      required:
-        - referenceName
-        - referenceBases
-      properties:
-        referenceName:
-          $ref: "#/components/schemas/Resource"
-        resourceIds:
-          description: >-
-            Identifiers of resources, as defined in "Resource". If this
-            field is null/not specified, all resources should be queried.
-          type: array
-          items:
-            type: string
     Organization:
       description: Organization owning the API.
       type: object
@@ -336,22 +308,22 @@ components:
             $ref: "#/components/schemas/KeyValuePair"
         dataUseConditions:
           $ref: "#/components/schemas/DataUseConditions"
-    KeyValuePair:
-      type: object
-      required:
-        - key
-        - value
-      properties:
-        key:
-          type: string
-        value:
-          type: string
-    DataUseConditions:
-      type: object
-      required:
-        - consentCodeDataUse
-      description: Data use conditions ruling this resource.
-      properties:
-        consentCodeDataUse:
-          $ref: >-
-            https://raw.githubusercontent.com/ga4gh/ga4gh-consent-policy/806ea53cffacb2055c3639f0fc9783f0dcd8cb02/consent_code.yaml#/components/schemas/ConsentCodeDataUse
+    #KeyValuePair:
+      #type: object
+      #required:
+        #- key
+        #- value
+      #properties:
+        #key:
+          #type: string
+        #value:
+          #type: string
+    #DataUseConditions:
+      #type: object
+      #required:
+        #- consentCodeDataUse
+      #description: Data use conditions ruling this resource.
+      #properties:
+        #consentCodeDataUse:
+          #$ref: >-
+            #https://raw.githubusercontent.com/ga4gh/ga4gh-consent-policy/806ea53cffacb2055c3639f0fc9783f0dcd8cb02/consent_code.yaml#/components/schemas/ConsentCodeDataUse
