@@ -85,18 +85,17 @@ paths:
         - name: orphaCode
           description: "The orphacode of the disease."
           in: query
-          required: "false"
+          required: false
           schema:
             code:
               type: integer
               format: int32
-        - name: resourceIds
+        - name: medAreas
           description: >-
-            Identifiers of resources, as defined in "Resource". If this
+            The medical areas of the desired resource. If this
             field is null/not specified, all ressources should be queried.
           in: query
           required: false
-          explode: true
           schema:
             type: array
             items:
@@ -229,8 +228,28 @@ components:
             $ref: "#/components/schemas/Resource"
         error:
           $ref: "#/components/schemas/ErrorResponse"
+    DataRequest:
+      description: Request as interpreted by the API.
+      type: object
+      required:
+        - referenceName
+      properties:
+        referenceName:
+          description: The reference name of the resource (disease name).
+          type: string
+        orphaCode:
+          description: "The orphacode of the disease."
+          type: integer
+            format: int32
+        medArea:
+          description: >-
+            Medical area of the desired resource. If this field is null/not specified, 
+            all resources should be queried.
+          type: array
+            items:
+              type: string
     Organization:
-      description: Organization owning the API.
+      description: Organization owning the API/Resource.
       type: object
       required:
         - id
@@ -261,11 +280,11 @@ components:
           description: >-
             URL to the logo (PNG/JPG format) of the organization (RFC 3986
             format).
-        info:
-          description: "Additional structured metadata, key-value pairs."
-          type: array
-          items:
-            $ref: "#/components/schemas/KeyValuePair"
+        #info:
+          #description: "Additional structured metadata, key-value pairs."
+          #type: array
+            #items:
+              #$ref: "#/components/schemas/KeyValuePair"
     Resource:
       type: object
       required:
