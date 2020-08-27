@@ -149,16 +149,11 @@ components:
     InfoResponse:
       type: object
       required:
-        - id
         - name
         - apiVersion
         - organization
         - description
       properties:
-        id:
-          type: string
-          description: Unique identifier of the API. Use reverse domain name notation.
-          example: org.ga4gh.api
         name:
           type: string
           description: Name of the API.
@@ -171,6 +166,10 @@ components:
         description:
           type: string
           description: Description of the API.
+        id:
+          type: string
+          description: Unique identifier of the API. Use reverse domain name notation.
+          example: org.ga4gh.api
         createDateTime:
           type: string
           description: The time the API was created (ISO 8601 format).
