@@ -69,12 +69,12 @@ paths:
             #application/json:
               #schema:
                 #ref: "#/components/schemas/ErrorResponse"
-  /query:
+  /resource:
     get:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getRecourceRequest"
       parameters:
-        - name: referenceName
+        - name: name
           description: "Reference name of the disease. 
           Accepting strings on a certain naming convention basis."
           in: query
