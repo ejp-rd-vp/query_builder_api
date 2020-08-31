@@ -208,11 +208,8 @@ components:
     DataResponse:
       type: object
       required:
-        - apiId
+        - apiVersion
       properties:
-        apiId:
-          description: "Identifier of the API, as defined in InfoResponse."
-          type: string
         apiVersion:
           description: Version of the API. If specified, the value must match `apiVersion`
             in InfoResponse.
