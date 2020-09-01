@@ -97,6 +97,19 @@ paths:
             type: array
             items:
               type: string
+        - name: skip
+          description: Number of pages to skip
+          in: query
+          schema:
+            type: integer
+            format: int32
+        - name: limit
+          description: Size of the page
+          in: query
+          schema: 
+            type: integer 
+            format: int32
+            default: 10
       responses:
         200:
           description: successful operation
@@ -219,6 +232,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Resource"
+        page:
+          $ref: "#/components/schemas/Page"
         error:
           $ref: "#/components/schemas/ErrorResponse"
     DataRequest:
@@ -240,6 +255,15 @@ components:
           type: array
           items:
             type: string
+        skip:
+          description: Number of pages to skip
+          type: integer
+          format: int32
+        limit:
+          description: Size of the page
+          type: integer 
+          format: int32
+          default: 10
     Organization:
       description: Organization owning the API/Resource.
       type: object
@@ -319,6 +343,22 @@ components:
             $ref: "#/components/schemas/KeyValuePair"
         dataUseConditions:
           $ref: "#/components/schemas/DataUseConditions"
+    Page:
+      type: object
+      properties:
+        totalNumbers:
+          description: Total number of resources found
+          type: integer
+        totalPages:
+          description: Total number of pages
+        size:
+          description: Number of resources for every page
+          type: integer
+        page:
+          description: Number of the current page
+          type: integer
+
+        
     #KeyValuePair:
       #type: object
       #required:
