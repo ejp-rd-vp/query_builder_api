@@ -78,7 +78,7 @@ paths:
           description: "Reference name of the disease. 
           Accepting strings on a certain naming convention basis."
           in: query
-          required: true
+          required: false
           schema:
             type: string
         - name: orphaCode
@@ -87,25 +87,27 @@ paths:
           required: false
           schema:
             type: string
-        - name: medAreas
-          description: >-
-            The medical areas of the desired resource. If this
-            field is null/not specified, all resources should be queried.
-          in: query
-          required: false
-          schema:
-            type: array
-            items:
-              type: string
+        #- name: medAreas
+          #description: >-
+            #The medical areas of the desired resource. If this
+            #field is null/not specified, all resources should be queried.
+          #in: query
+          #required: false
+          #schema:
+            #type: array
+            #items:
+              #type: string
         - name: skip
           description: Number of pages to skip
           in: query
+          required: false
           schema:
             type: integer
             format: int32
         - name: limit
           description: Size of the page
           in: query
+          required: false
           schema: 
             type: integer 
             format: int32
