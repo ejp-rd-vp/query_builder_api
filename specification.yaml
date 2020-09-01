@@ -69,7 +69,7 @@ paths:
             #application/json:
               #schema:
                 #ref: "#/components/schemas/ErrorResponse"
-  /resource:
+  /resources:
     get:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getResourceRequest"
