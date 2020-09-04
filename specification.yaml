@@ -469,8 +469,6 @@ components:
         - name
         - description
         - url
-        - createDateTime
-        - updateDateTime
       properties:
         id:
           type: string
