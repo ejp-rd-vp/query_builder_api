@@ -488,6 +488,10 @@ components:
           type: object
           description: The publishing organization of the resource.
           $ref: "#/components/schemas/Organization"
+        type:
+          type: string
+          description: The type of the resource.
+          example: "Patient registry"
         createDateTime:
           type: string
           description: The time the resource was created (ISO 8601 format).
@@ -500,7 +504,7 @@ components:
           type: string
           description: Version of the ressource.      
         info:
-          description: "Additional structured metadata, key-value pairs."
+          description: Additional structured metadata, key-value pairs.
           type: array
           items:
             $ref: "#/components/schemas/KeyValuePair"
