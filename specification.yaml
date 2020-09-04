@@ -484,6 +484,10 @@ components:
           description: >-
             URL to the ressource.
           example: "http://example.org/wiki/Main_Page"
+        publisher:
+          type: object
+          description: The publishing organization of the resource.
+          $ref: "#/components/schemas/Organization"
         createDateTime:
           type: string
           description: The time the resource was created (ISO 8601 format).
