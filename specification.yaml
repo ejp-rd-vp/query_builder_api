@@ -19,7 +19,7 @@ externalDocs:
 paths:
   /: 
     get:
-      description: "Get information about the ERDRI.dor query API."
+      description: "Get information about the API."
       operationId: "getInformation"
       responses:
         200:
@@ -45,7 +45,7 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
   #/v1:
     #get: 
-      #description: "Get information about version 1.0 of the ERDRI.dor query API."
+      #description: "Get information about version 1.0 of the API."
       #operationId": "getV1Information",
       #responses": 
         #"200":
@@ -69,7 +69,7 @@ paths:
             #application/json:
               #schema:
                 #ref: "#/components/schemas/ErrorResponse"
-  /resources:
+  /resource:
     get:
       description: "Return a list of all listed resources in the catalogue."
       operationId: "getAllResources"
@@ -117,7 +117,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /resources/search?:
+  /resource/search?:
     get:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getResourceSearch"
