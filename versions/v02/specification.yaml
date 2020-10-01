@@ -1,0 +1,500 @@
+openapi: "3.0.0"
+info:
+  version: "0.2"
+  title: "ERDRI.dor Query API Specification"
+  description: >-
+    "The ERDRI.dor query API is a web service for rare disease data sharing 
+    that can be queried for information about specific rare disease data registries."
+  #contact:
+    #name: "Magic Mike"
+    #email: "someone@erdri.dor"
+  #license:
+    #name: "Apache 2.0"
+    #url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+externalDocs:
+  description: "ERDRI.dor Website"
+  url: "https://eu-rd-platform.jrc.ec.europa.eu/erdri-description_de"
+paths:
+  /: 
+    get:
+      description: "Get information about the API."
+      operationId: "getInformation"
+      responses:
+        200:
+          description: "successful operation"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/InfoResponse"
+        404:
+          description: "not found"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        default:
+          description: "unexpected error"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /resource:
+    get:
+      description: "Return a list of all listed resources in the catalogue."
+      operationId: "getAllResources"
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/DataResponse"
+        400:
+          description: Bad request (e.g. missing mandatory parameter)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        401:
+          description: >-
+            Unauthorised (e.g. when an unauthenticated user tries to access a
+            protected resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        403:
+          description: >-
+            Forbidden (e.g. the resource is protected for all users or the user
+            is authenticated but s/he is not granted for this resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        404:
+          description: "not found"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        default:
+          description: "unexpected error"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /resource/search?:
+    get:
+      description: "Get response to a query for a certain rare disease (resources)."
+      operationId: "getResourceSearch"
+      parameters:
+        - name: name
+          description: "Reference name of the disease. 
+          Accepting strings on a certain naming convention basis."
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: orphaCode
+          description: "The orphacode of the disease."
+          in: query
+          required: false
+          schema:
+            type: string
+        #- name: medAreas
+          #description: >-
+            #The medical areas of the desired resource. If this
+            #field is null/not specified, all resources should be queried.
+          #in: query
+          #required: false
+          #schema:
+            #type: array
+            #items:
+              #type: string
+        - name: skip
+          description: Number of pages to skip
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: limit
+          description: Size of the page
+          in: query
+          required: false
+          schema: 
+            type: integer 
+            format: int32
+            default: 10
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/DataResponse"
+        400:
+          description: Bad request (e.g. missing mandatory parameter)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        401:
+          description: >-
+            Unauthorised (e.g. when an unauthenticated user tries to access a
+            protected resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        403:
+          description: >-
+            Forbidden (e.g. the resource is protected for all users or the user
+            is authenticated but s/he is not granted for this resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        404:
+          description: "not found"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        default:
+          description: "unexpected error"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /resource/name/{name}:
+    get:
+      description: "Get response to a query for a certain rare disease name."
+      operationId: "getResourceByName"
+      parameters:
+        - name: name
+          description: "Reference name of the disease. 
+          Accepting strings on a certain naming convention basis."
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/DataResponse"
+        400:
+          description: Bad request (e.g. missing mandatory parameter)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        401:
+          description: >-
+            Unauthorised (e.g. when an unauthenticated user tries to access a
+            protected resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        403:
+          description: >-
+            Forbidden (e.g. the resource is protected for all users or the user
+            is authenticated but s/he is not granted for this resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        404:
+          description: "not found"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        default:
+          description: "unexpected error"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /resource/orphacode/{orphacode}:
+    get:
+      description: "Get response to a query for a certain rare disease orphacode."
+      operationId: "getResourceByOrphacode"
+      parameters:
+        - name: orphacode
+          description: "Orphacode of the disease."
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/DataResponse"
+        400:
+          description: Bad request (e.g. missing mandatory parameter)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        401:
+          description: >-
+            Unauthorised (e.g. when an unauthenticated user tries to access a
+            protected resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        403:
+          description: >-
+            Forbidden (e.g. the resource is protected for all users or the user
+            is authenticated but s/he is not granted for this resource)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        404:
+          description: "not found"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        default:
+          description: "unexpected error"
+          #headers:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    InfoResponse:
+      type: object
+      required:
+        - name
+        - apiVersion
+        - organization
+        - description
+      properties:
+        name:
+          type: string
+          description: Name of the API.
+        apiVersion:
+          type: string
+          description: Version of the API provided.
+          example: v0.1
+        organization:
+          $ref: "#/components/schemas/Organization"
+        description:
+          type: string
+          description: Description of the API.
+        id:
+          type: string
+          description: Unique identifier of the API. Use reverse domain name notation.
+          example: org.ga4gh.api
+        createDateTime:
+          type: string
+          description: The time the API was created (ISO 8601 format).
+          example: "2012-07-19 or 2017-01-17T20:33:40Z"
+        updateDateTime:
+          type: string
+          description: The time the API was last updated (ISO 8601 format).
+          example: "2012-07-19 or 2017-01-17T20:33:40Z"
+        resources:
+          description: >-
+            Resource(s) served by the API.
+          minItems: 1
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+        sampleRequests:
+          description: >-
+            Examples of interesting queries, e.g. a few queries demonstrating
+            different responses.
+          type: array
+          items:
+            $ref: "#/components/schemas/DataRequest"
+        #info:
+          #description: "Additional structured metadata, key-value pairs."
+          #type: array
+          #items:
+            #$ref: "#/components/schemas/KeyValuePair"
+    ErrorResponse:
+      type: "object"
+      required: 
+        - code 
+        - message
+      properties:
+        code: 
+          type: integer
+          format: int32
+        message: 
+          type: string
+    DataResponse:
+      type: object
+      required:
+        - apiVersion
+      properties:
+        apiVersion:
+          description: Version of the API. If specified, the value must match `apiVersion`
+            in InfoResponse.
+          type: string
+        resourceResponses:
+          description: The resource results.
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+        page:
+          $ref: "#/components/schemas/Page"
+        error:
+          $ref: "#/components/schemas/ErrorResponse"
+    DataRequest:
+      description: Request as interpreted by the API.
+      type: object
+      required:
+        - referenceName
+      properties:
+        referenceName:
+          description: The reference name of the resource (disease name).
+          type: string
+        orphaCode:
+          description: "The orphacode of the disease."
+          type: string
+        medArea:
+          description: >-
+            Medical area of the desired resource. If this field is null/not specified, 
+            all resources should be queried.
+          type: array
+          items:
+            type: string
+        skip:
+          description: Number of pages to skip
+          type: integer
+          format: int32
+        limit:
+          description: Size of the page
+          type: integer 
+          format: int32
+          default: 10
+    Resource:
+      type: object
+      required:
+        - name
+        - description
+        - url
+      properties:
+        id:
+          type: string
+          description: Unique identifier of the ressource.
+        name:
+          type: string
+          description: Name of the resource.
+        description:
+          type: string
+          description: Description of the resource.
+        url:
+          type: string
+          description: >-
+            URL to the ressource.
+          example: "http://example.org/wiki/Main_Page"
+        publisher:
+          type: object
+          description: The publishing organization of the resource.
+          $ref: "#/components/schemas/Organization"
+        type:
+          type: string
+          description: The type of the resource.
+          example: "Patient registry"
+        createDateTime:
+          type: string
+          description: The time the resource was created (ISO 8601 format).
+          example: "2012-07-29 or 2017-01-17T20:33:40Z"
+        updateDateTime:
+          type: string
+          description: The time the resource was last updated (ISO 8601 format).
+          example: "2012-07-19 or 2017-01-17T20:33:40Z"
+        version:
+          type: string
+          description: Version of the ressource.      
+        #dataUseConditions:
+          #$ref: "#/components/schemas/DataUseConditions"
+    Organization:
+      description: Organization owning the API/Resource.
+      type: object
+      required:
+        - name
+      properties:
+        @id:
+          type: string
+          description: Unique identifier of the organization.
+        name:
+          type: string
+          description: Name of the organization.
+        description:
+          type: string
+          description: Description of the organization.
+        location:
+          $ref: "#/components/schemas/Location"
+        homepage:
+          type: string
+          description: URL of the website of the organization (RFC 3986 format).
+        contactUrl:
+          type: string
+          description: >-
+            URL with the contact for the beacon operator/maintainer, e.g. link
+            to a contact form (RFC 3986 format) or an email (RFC 2368 format).
+        logoUrl:
+          type: string
+          description: >-
+            URL to the logo (PNG/JPG format) of the organization (RFC 3986
+            format).
+    Location:
+      type: object
+      properties:
+        @id:
+          description: A unique identifier.
+          type: string
+        city:
+            description: The city of the location.
+            type: string
+        country:
+          description: The country the location is in.
+          type: string
+        region:
+          description: The region the location is in.
+          type: string
+    Page:
+      type: object
+      properties:
+        totalNumbers:
+          description: Total number of resources found
+          type: integer
+        totalPages:
+          description: Total number of pages
+        size:
+          description: Number of resources for every page
+          type: integer
+        page:
+          description: Number of the current page
+          type: integer
