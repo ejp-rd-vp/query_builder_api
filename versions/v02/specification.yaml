@@ -404,7 +404,7 @@ components:
         - description
         - url
       properties:
-        id:
+        @id:
           type: string
           description: Unique identifier of the ressource.
         name:
@@ -422,7 +422,7 @@ components:
           type: object
           description: The publishing organization of the resource.
           $ref: "#/components/schemas/Organization"
-        type:
+        @type:
           type: string
           description: The type of the resource.
           example: "Patient registry"
@@ -436,7 +436,11 @@ components:
           example: "2012-07-19 or 2017-01-17T20:33:40Z"
         version:
           type: string
-          description: Version of the ressource.      
+          description: Version of the ressource.
+        datasets:
+            type: Array
+            items:
+                type: string
         #dataUseConditions:
           #$ref: "#/components/schemas/DataUseConditions"
     Organization:
