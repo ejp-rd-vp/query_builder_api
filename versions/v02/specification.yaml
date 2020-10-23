@@ -22,21 +22,18 @@ paths:
       responses:
         200:
           description: "successful operation"
-          #headers:
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/InfoResponse"
         404:
           description: "not found"
-          #headers:
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         default:
           description: "unexpected error"
-          #headers:
           content:
             application/json:
               schema:
@@ -77,14 +74,12 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         404:
           description: "not found"
-          #headers:
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         default:
           description: "unexpected error"
-          #headers:
           content:
             application/json:
               schema:
@@ -107,16 +102,6 @@ paths:
           required: false
           schema:
             type: string
-        #- name: medAreas
-          #description: >-
-            #The medical areas of the desired resource. If this
-            #field is null/not specified, all resources should be queried.
-          #in: query
-          #required: false
-          #schema:
-            #type: array
-            #items:
-              #type: string
         - name: skip
           description: Number of pages to skip
           in: query
@@ -164,14 +149,12 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         404:
           description: "not found"
-          #headers:
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         default:
           description: "unexpected error"
-          #headers:
           content:
             application/json:
               schema:
@@ -220,14 +203,12 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         404:
           description: "not found"
-          #headers:
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         default:
           description: "unexpected error"
-          #headers:
           content:
             application/json:
               schema:
@@ -275,14 +256,12 @@ paths:
                 $ref: "#/components/schemas/ErrorResponse"
         404:
           description: "not found"
-          #headers:
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
         default:
           description: "unexpected error"
-          #headers:
           content:
             application/json:
               schema:
@@ -292,54 +271,55 @@ components:
     InfoResponse:
       type: object
       required:
-        - name
-        - apiVersion
-        - organization
-        - description
+        - @id
+        - @type
       properties:
+        @id:
+          description: A primary identifier for the catalog.
+          type: string
+          example: http://www.orpha.net"
+        @type:
+          description: The primary type for this catalog.
+          type: string
+          example: CatalogOfRegistries
         name:
           type: string
           description: Name of the API.
+        description:
+          type: string
+          description: Description of the API.
+        homepage:
+          description: The homepage of the catalog.
+          type: string
+          example: http://www.orpha.net
+        datasets:
+          description: >-
+            Resource(s) served by the API.
+          minItems: 0
+          type: array
+          items:
+            $ref: "#/components/schemas/Resource"
+        organization:
+          $ref: "#/components/schemas/Organization"
         apiVersion:
           type: string
           description: Version of the API provided.
           example: v0.1
-        organization:
-          $ref: "#/components/schemas/Organization"
-        description:
-          type: string
-          description: Description of the API.
-        id:
-          type: string
-          description: Unique identifier of the API. Use reverse domain name notation.
-          example: org.ga4gh.api
-        createDateTime:
-          type: string
-          description: The time the API was created (ISO 8601 format).
-          example: "2012-07-19 or 2017-01-17T20:33:40Z"
-        updateDateTime:
-          type: string
-          description: The time the API was last updated (ISO 8601 format).
-          example: "2012-07-19 or 2017-01-17T20:33:40Z"
-        resources:
-          description: >-
-            Resource(s) served by the API.
-          minItems: 1
-          type: array
-          items:
-            $ref: "#/components/schemas/Resource"
-        sampleRequests:
-          description: >-
-            Examples of interesting queries, e.g. a few queries demonstrating
-            different responses.
-          type: array
-          items:
-            $ref: "#/components/schemas/DataRequest"
-        #info:
-          #description: "Additional structured metadata, key-value pairs."
+        #createDateTime:
+          #type: string
+          #description: The time the API was created (ISO 8601 format).
+          #example: "2012-07-19 or 2017-01-17T20:33:40Z"
+        #updateDateTime:
+          #type: string
+          #description: The time the API was last updated (ISO 8601 format).
+          #example: "2012-07-19 or 2017-01-17T20:33:40Z"
+        #sampleRequests:
+          #description: >-
+            #Examples of interesting queries, e.g. a few queries demonstrating
+            #different responses.
           #type: array
           #items:
-            #$ref: "#/components/schemas/KeyValuePair"
+            #$ref: "#/components/schemas/DataRequest"
     ErrorResponse:
       type: "object"
       required: 
@@ -373,21 +353,14 @@ components:
       description: Request as interpreted by the API.
       type: object
       required:
-        - referenceName
+        - orphaCode
       properties:
-        referenceName:
-          description: The reference name of the resource (disease name).
-          type: string
         orphaCode:
           description: "The orphacode of the disease."
           type: string
-        medArea:
-          description: >-
-            Medical area of the desired resource. If this field is null/not specified, 
-            all resources should be queried.
-          type: array
-          items:
-            type: string
+        referenceName:
+          description: The reference name of the resource (disease name).
+          type: string
         skip:
           description: Number of pages to skip
           type: integer
@@ -400,6 +373,8 @@ components:
     Resource:
       type: object
       required:
+        - @id
+        - @type
         - name
         - description
         - url
@@ -441,8 +416,6 @@ components:
             type: Array
             items:
                 type: string
-        #dataUseConditions:
-          #$ref: "#/components/schemas/DataUseConditions"
     Organization:
       description: Organization owning the API/Resource.
       type: object
@@ -458,21 +431,11 @@ components:
         description:
           type: string
           description: Description of the organization.
-        location:
-          $ref: "#/components/schemas/Location"
         homepage:
           type: string
           description: URL of the website of the organization (RFC 3986 format).
-        contactUrl:
-          type: string
-          description: >-
-            URL with the contact for the beacon operator/maintainer, e.g. link
-            to a contact form (RFC 3986 format) or an email (RFC 2368 format).
-        logoUrl:
-          type: string
-          description: >-
-            URL to the logo (PNG/JPG format) of the organization (RFC 3986
-            format).
+        location:
+          $ref: "#/components/schemas/Location"
     Location:
       type: object
       properties:
