@@ -84,7 +84,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /resource/search?:
+  /resource/search:
     get:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getResourceSearch"
@@ -164,14 +164,14 @@ components:
     InfoResponse:
       type: object
       required:
-        - @id
-        - @type
+        - id
+        - type
       properties:
-        @id:
+        id:
           description: A primary identifier for the catalog.
           type: string
           example: http://www.orpha.net"
-        @type:
+        type:
           description: The primary type for this catalog.
           type: string
           example: CatalogOfRegistries
@@ -191,7 +191,7 @@ components:
           minItems: 0
           type: array
           items:
-            $ref: "#/components/schemas/Resource"
+            $ref: "#/components/schemas/Resource"  # Are these the actual records? Or should be the type of datasets?
         organization:
           $ref: "#/components/schemas/Organization"
         apiVersion:
@@ -266,13 +266,13 @@ components:
     Resource:
       type: object
       required:
-        - @id
-        - @type
+        - id
+        - type
         - name
         - description
         - url
       properties:
-        @id:
+        id:
           type: string
           description: Unique identifier of the ressource.
         name:
@@ -290,7 +290,7 @@ components:
           type: object
           description: The publishing organization of the resource.
           $ref: "#/components/schemas/Organization"
-        @type:
+        type:
           type: string
           description: The type of the resource.
           example: "Patient registry"
@@ -306,16 +306,17 @@ components:
           type: string
           description: Version of the ressource.
         datasets:
-            type: Array
+            type: array
             items:
                 type: string
     Organization:
       description: Organization owning the API/Resource.
       type: object
       required:
+        - id
         - name
       properties:
-        @id:
+        id:
           type: string
           description: Unique identifier of the organization.
         name:
@@ -332,7 +333,7 @@ components:
     Location:
       type: object
       properties:
-        @id:
+        id:
           description: A unique identifier.
           type: string
         city:

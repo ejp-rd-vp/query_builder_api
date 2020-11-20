@@ -18,16 +18,16 @@
       "type": "string",
       "example": "CatalogOfRegistries",
       "enum": [
-          "CatalogOfRegistries"
+        "CatalogOfRegistries"
       ]
     },
     "name": {
       "description": "A name for the catalogue.",
-      "type": "string",
+      "type": "string"
     },
     "description": {
       "description": "A description for the catalogue.",
-      "type": "string",
+      "type": "string"
     },
     "homepage": {
       "description": "The homepage of the catalogue.",
@@ -38,33 +38,33 @@
       "type": "array",
       "descripton": "Resource(s) served by the API.",
       "items": {
-		"$ref": "resource.json"
+        "$ref": "resource.json"
       }
     },
     "organisation": {
-	  "$ref": "organisation.json"
+      "$ref": "organisation.json"
     },
-	"apiVersion": {
+    "apiVersion": {
       "type": "string",
       "description": "Version of the API the catalogue is providing.",
       "example": "v0.1"
-	},
-	"createDateTime": {
+    },
+    "createDateTime": {
       "type": "string",
       "description": "The time the API was created (ISO 8601 format).",
       "example": "2012-07-19 or 2017-01-17T20:33:40Z"
-	},
+    },
     "updateDateTime": {
       "type": "string",
       "description": "The time the API was last updated (ISO 8601 format).",
       "example": "2012-07-19 or 2017-01-17T20:33:40Z"
-	},
+    },
     "sampleRequests": {
       "description": "Examples of interesting requests to the catalogue API.",
       "type": "array",
       "items": {
-        "type": "string",
-	  }
-	}
+        "type": "string"
+      }
+    }
   }
 }
