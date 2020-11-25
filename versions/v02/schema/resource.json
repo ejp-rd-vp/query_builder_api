@@ -6,13 +6,13 @@
   "required": [
     "@id",
     "@type",
-	"name",
-	"description",
-	"homepage"
+    "name",
+    "description",
+    "homepage"
   ],
   "properties": {
     "@id": {
-      "description": "A primary identifier for the resource.",
+      "description": "A primary identifier for the resource",
       "type": "string",
       "example": "https://www.pcdregistry.eu/"
     },
@@ -25,7 +25,7 @@
       ]
     },
     "name": {
-      "description": "A name for the resource.",
+      "description": "A name for the resource",
       "type": "string",
       "example" : "PDC registry"
     },
@@ -35,13 +35,13 @@
       "example" : "PDC registry"
     },
     "homepage": {
-      "description": "The homepage of the resource.",
+      "description": "The homepage of the resource",
       "type": "string",
       "example" : "https://www.pcdregistry.eu/",
       "format" :"url"
     },
     "publisher": {
-      "description": "The primary organisation responsible for publishing and maintaining the resource.",
+      "description": "The primary organisation responsible for publishing and maintaining the resource",
       "$ref": "organisation.json"
     }
   }

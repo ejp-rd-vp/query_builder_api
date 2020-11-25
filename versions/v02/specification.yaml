@@ -84,7 +84,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /resource/search?:
+  /resource/search:
     get:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getResourceSearch"
@@ -164,55 +164,42 @@ components:
     InfoResponse:
       type: object
       required:
-        - @id
-        - @type
+        - id
+        - type
       properties:
-        @id:
-          description: A primary identifier for the catalog.
+        id:
+          description: A primary identifier for the catalogue
           type: string
           example: http://www.orpha.net"
-        @type:
-          description: The primary type for this catalog.
-          type: string
-          example: CatalogOfRegistries
-        name:
-          type: string
-          description: Name of the API.
-        description:
-          type: string
-          description: Description of the API.
-        homepage:
-          description: The homepage of the catalog.
-          type: string
-          example: http://www.orpha.net
-        datasets:
-          description: >-
-            Resource(s) served by the API.
-          minItems: 0
+        type:
+          description: The primary type(s) for this catalogue
           type: array
           items:
-            $ref: "#/components/schemas/Resource"
+            type: string
+            enum: [CatalogOfRegistries, CatalogOfBiobanks]
+          example: [CatalogOfRegistries]
+        name:
+          type: string
+          description: A name for the catalogue
+        description:
+          type: string
+          description: A description for the catalogue
+        homepage:
+          description: The homepage of the catalogue
+          type: string
+          example: http://www.orpha.net
         organization:
           $ref: "#/components/schemas/Organization"
         apiVersion:
           type: string
-          description: Version of the API provided.
+          description: Version of the API the catalogue is providing
           example: v0.1
-        #createDateTime:
-          #type: string
-          #description: The time the API was created (ISO 8601 format).
-          #example: "2012-07-19 or 2017-01-17T20:33:40Z"
-        #updateDateTime:
-          #type: string
-          #description: The time the API was last updated (ISO 8601 format).
-          #example: "2012-07-19 or 2017-01-17T20:33:40Z"
-        #sampleRequests:
-          #description: >-
-            #Examples of interesting queries, e.g. a few queries demonstrating
-            #different responses.
-          #type: array
-          #items:
-            #$ref: "#/components/schemas/DataRequest"
+        sampleRequests:
+          description: >-
+            Examples of interesting requests to the catalogue API.
+          type: array
+          items:
+            type: string
     ErrorResponse:
       type: "object"
       required: 
@@ -266,84 +253,83 @@ components:
     Resource:
       type: object
       required:
-        - @id
-        - @type
+        - id
+        - type
         - name
         - description
-        - url
+        - homepage
       properties:
-        @id:
+        id:
           type: string
-          description: Unique identifier of the ressource.
+          description: A primary identifier for the resource
+          example: https://www.pcdregistry.eu/
         name:
           type: string
-          description: Name of the resource.
+          description: A name for the resource
+          example: PDC registry
         description:
           type: string
-          description: Description of the resource.
-        url:
+          description: A description for the resource
+          example: PDC registry
+        homepage:
           type: string
-          description: >-
-            URL to the ressource.
-          example: "http://example.org/wiki/Main_Page"
+          description: The homepage of the resource
+          example: "https://www.pcdregistry.eu/"
+          format: url
         publisher:
           type: object
-          description: The publishing organization of the resource.
+          description: The primary organisation responsible for publishing and maintaining the resource
           $ref: "#/components/schemas/Organization"
-        @type:
+        type:
           type: string
           description: The type of the resource.
           example: "Patient registry"
-        createDateTime:
-          type: string
-          description: The time the resource was created (ISO 8601 format).
-          example: "2012-07-29 or 2017-01-17T20:33:40Z"
-        updateDateTime:
-          type: string
-          description: The time the resource was last updated (ISO 8601 format).
-          example: "2012-07-19 or 2017-01-17T20:33:40Z"
-        version:
-          type: string
-          description: Version of the ressource.
-        datasets:
-            type: Array
-            items:
-                type: string
     Organization:
-      description: Organization owning the API/Resource.
+      description: A schema to describe an organisation
       type: object
       required:
+        - id
         - name
       properties:
-        @id:
+        id:
           type: string
-          description: Unique identifier of the organization.
+          description: A primary identifier for the organisation
         name:
           type: string
-          description: Name of the organization.
+          description: A name or short description for the organisation
+          example: Orphanet
         description:
           type: string
-          description: Description of the organization.
+          description: A description for the organiation
+          example: Orphanet is a unique resource, gathering and improving knowledge on rare diseases
         homepage:
           type: string
-          description: URL of the website of the organization (RFC 3986 format).
+          description: The primary URL for the homepage of the organisation
+          format: url
+          example: https://www.orpha.net/consor/cgi-bin/index.php
         location:
+          description: Information about the location associated with the organisation
           $ref: "#/components/schemas/Location"
     Location:
+      description: A schema to describe a location, region or jurisdiction
       type: object
+      required:
+        - id
+        - country
       properties:
-        @id:
-          description: A unique identifier.
+        id:
+          description: A primary identifier for the location
           type: string
         city:
-            description: The city of the location.
+            description: The city of the location
             type: string
         country:
-          description: The country the location is in.
+          description: The country the location is in
           type: string
         region:
-          description: The region the location is in.
+          description: The region the location is in
           type: string
+          enum: [international, europe]
     Page:
       type: object
       properties:

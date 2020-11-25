@@ -9,62 +9,48 @@
   ],
   "properties": {
     "@id": {
-      "description": "A primary identifier for the catalogue.",
+      "description": "A primary identifier for the catalogue",
       "type": "string",
       "example": "http://www.orpha.net"
     },
     "@type": {
-      "description": "The primary type for this catalogue.",
-      "type": "string",
-      "example": "CatalogOfRegistries",
-      "enum": [
-          "CatalogOfRegistries"
-      ]
+      "description": "The primary type(s) for this catalogue",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "CatalogOfRegistries", "CatalogOfBiobanks"
+        ]
+      },
+      "example": ["CatalogOfRegistries"]
     },
     "name": {
-      "description": "A name for the catalogue.",
-      "type": "string",
+      "description": "A name for the catalogue",
+      "type": "string"
     },
     "description": {
-      "description": "A description for the catalogue.",
-      "type": "string",
+      "description": "A description for the catalogue",
+      "type": "string"
     },
     "homepage": {
-      "description": "The homepage of the catalogue.",
+      "description": "The homepage of the catalogue",
       "type": "string",
       "example": "http://www.orpha.net"
     },
-    "datasets": {
-      "type": "array",
-      "descripton": "Resource(s) served by the API.",
-      "items": {
-		"$ref": "resource.json"
-      }
-    },
     "organisation": {
-	  "$ref": "organisation.json"
+      "$ref": "organisation.json"
     },
-	"apiVersion": {
+    "apiVersion": {
       "type": "string",
       "description": "Version of the API the catalogue is providing.",
       "example": "v0.1"
-	},
-	"createDateTime": {
-      "type": "string",
-      "description": "The time the API was created (ISO 8601 format).",
-      "example": "2012-07-19 or 2017-01-17T20:33:40Z"
-	},
-    "updateDateTime": {
-      "type": "string",
-      "description": "The time the API was last updated (ISO 8601 format).",
-      "example": "2012-07-19 or 2017-01-17T20:33:40Z"
-	},
+    },
     "sampleRequests": {
       "description": "Examples of interesting requests to the catalogue API.",
       "type": "array",
       "items": {
-        "type": "string",
-	  }
-	}
+        "type": "string"
+      }
+    }
   }
 }
