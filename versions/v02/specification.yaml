@@ -305,45 +305,45 @@ components:
         version:
           type: string
           description: Version of the ressource.
-      #  datasets:
-       #     type: Array
-        #    items:
-         #       type: string
-    #Organization:
-     # description: Organization owning the API/Resource.
-      #type: object
-      #required:
-       # - name
-      #properties:
-       # @id:
-        #  type: string
-         # description: Unique identifier of the organization.
-        #name:
-         # type: string
-         # description: Name of the organization.
-        #description:
-         # type: string
-         # description: Description of the organization.
-        #homepage:
-         # type: string
-         # description: URL of the website of the organization (RFC 3986 format).
-        #location:
-         # $ref: "#/components/schemas/Location"
-   # Location:
-    #  type: object
-     # properties:
-      #  @id:
-       #   description: A unique identifier.
-        #  type: string
-        #city:
-         #   description: The city of the location.
-          #  type: string
-        #country:
-         # description: The country the location is in.
-          #type: string
-        #region:
-         # description: The region the location is in.
-         # type: string
+        datasets:
+            type: Array
+            items:
+                type: string
+    Organization:
+      description: Organization owning the API/Resource.
+      type: object
+      required:
+        - name
+      properties:
+        @id:
+          type: string
+          description: Unique identifier of the organization.
+        name:
+          type: string
+          description: Name of the organization.
+        description:
+          type: string
+          description: Description of the organization.
+        homepage:
+          type: string
+          description: URL of the website of the organization (RFC 3986 format).
+        location:
+          $ref: "#/components/schemas/Location"
+    Location:
+      type: object
+      properties:
+        @id:
+          description: A unique identifier.
+          type: string
+        city:
+            description: The city of the location.
+            type: string
+        country:
+          description: The country the location is in.
+          type: string
+        region:
+          description: The region the location is in.
+          type: string
     Page:
       type: object
       properties:
