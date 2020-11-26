@@ -89,13 +89,6 @@ paths:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getResourceSearch"
       parameters:
-        - name: name
-          description: "Reference name of the disease. 
-          Accepting strings on a certain naming convention basis."
-          in: query
-          required: false
-          schema:
-            type: string
         - name: orphaCode
           description: "The orphacode of the disease."
           in: query
@@ -229,27 +222,6 @@ components:
           $ref: "#/components/schemas/Page"
         error:
           $ref: "#/components/schemas/ErrorResponse"
-    DataRequest:
-      description: Request as interpreted by the API.
-      type: object
-      required:
-        - orphaCode
-      properties:
-        orphaCode:
-          description: "The orphacode of the disease."
-          type: string
-        referenceName:
-          description: The reference name of the resource (disease name).
-          type: string
-        skip:
-          description: Number of pages to skip
-          type: integer
-          format: int32
-        limit:
-          description: Size of the page
-          type: integer 
-          format: int32
-          default: 10
     Resource:
       type: object
       required:
