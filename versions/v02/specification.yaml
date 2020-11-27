@@ -38,52 +38,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /resource:
-    get:
-      description: "Return a list of all listed resources in the catalogue."
-      operationId: "getAllResources"
-      responses:
-        200:
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                items:
-                  $ref: "#/components/schemas/DataResponse"
-        400:
-          description: Bad request (e.g. missing mandatory parameter)
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        401:
-          description: >-
-            Unauthorised (e.g. when an unauthenticated user tries to access a
-            protected resource)
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        403:
-          description: >-
-            Forbidden (e.g. the resource is protected for all users or the user
-            is authenticated but s/he is not granted for this resource)
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        404:
-          description: "not found"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
-        default:
-          description: "unexpected error"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/ErrorResponse"
   /resource/search:
     get:
       description: "Get response to a query for a certain rare disease (resources)."
