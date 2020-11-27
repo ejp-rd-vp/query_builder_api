@@ -92,7 +92,7 @@ paths:
         - name: orphaCode
           description: "The orphacode of the disease."
           in: query
-          required: false
+          required: true
           schema:
             type: string
         - name: skip
