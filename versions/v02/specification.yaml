@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: "0.2"
+  version: "2.0"
   title: "Federated Resource Query API Specification"
   description: >-
     "Federated Resource Query API is a web service for rare disease data sharing 
@@ -139,7 +139,7 @@ components:
         apiVersion:
           type: string
           description: Version of the API the catalogue is providing
-          example: v0.1
+          example: v2.0
         sampleRequests:
           description: >-
             Examples of interesting requests to the catalogue API.
@@ -166,6 +166,7 @@ components:
           description: Version of the API. If specified, the value must match `apiVersion`
             in InfoResponse.
           type: string
+          example: v2.0
         resourceResponses:
           description: The resource results.
           type: array
