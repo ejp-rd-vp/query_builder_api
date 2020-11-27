@@ -1,19 +1,18 @@
 openapi: "3.0.0"
 info:
   version: "0.2"
-  title: "ERDRI.dor Query API Specification"
+  title: "Federated Resource Query API Specification"
   description: >-
-    "The ERDRI.dor query API is a web service for rare disease data sharing 
-    that can be queried for information about specific rare disease data registries."
-  #contact:
-    #name: "Magic Mike"
-    #email: "someone@erdri.dor"
+    "Federated Resource Query API is a web service for rare disease data sharing 
+    that can be queried for information about specific rare disease data."
+  contact:
+    name: "EJP-RD Pillar 2 Query Builder Work Focus"
   #license:
     #name: "Apache 2.0"
     #url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 externalDocs:
-  description: "ERDRI.dor Website"
-  url: "https://eu-rd-platform.jrc.ec.europa.eu/erdri-description_de"
+  description: "EJP-RD Website"
+  url: "https://www.ejprarediseases.org"
 paths:
   /: 
     get:
