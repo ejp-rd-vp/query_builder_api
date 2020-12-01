@@ -174,8 +174,6 @@ components:
             $ref: "#/components/schemas/Resource"
         page:
           $ref: "#/components/schemas/Page"
-        error:
-          $ref: "#/components/schemas/ErrorResponse"
     Resource:
       type: object
       required:
