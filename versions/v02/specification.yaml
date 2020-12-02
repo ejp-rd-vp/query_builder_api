@@ -257,7 +257,7 @@ components:
     Page:
       type: object
       properties:
-        totalNumbers:
+        totalElements:
           description: Total number of resources found
           type: integer
         totalPages:
