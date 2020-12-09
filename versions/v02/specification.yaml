@@ -265,6 +265,6 @@ components:
         size:
           description: Number of resources for every page
           type: integer
-        page:
+        number:
           description: Number of the current page
           type: integer
