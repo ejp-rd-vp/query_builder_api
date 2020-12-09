@@ -207,7 +207,11 @@ components:
         type:
           type: string
           description: The type of the resource.
-          example: "Patient registry"
+          example: "PatientRegistryDataset"
+          enum: [
+            "PatientRegistryDataset", 
+            "BiobankDataset"
+          ]
     Organization:
       description: A schema to describe an organisation
       type: object
