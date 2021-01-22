@@ -43,20 +43,27 @@ paths:
       operationId: "getResourceSearch"
       parameters:
         - name: orphaCode
-          description: "The orphacode of the disease."
+          description: The orphacode of the disease.
           in: query
           required: true
           schema:
             type: string
+        - name: resourceType
+          description: The type of resource the responded results are of, e.g. PatientRegistryDataset.
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [PatientRegistryDataset, BiobankDataset]
         - name: skip
-          description: Number of pages to skip
+          description: Number of pages to skip.
           in: query
           required: false
           schema:
             type: integer
             format: int32
         - name: limit
-          description: Size of the page
+          description: Size of the page.
           in: query
           required: false
           schema: 
