@@ -47,14 +47,33 @@ paths:
           in: query
           required: true
           schema:
-            type: string
+            type: array
+            items:
+              type: string
         - name: resourceType
           description: The type of resource the responded results are of, e.g. PatientRegistryDataset.
           in: query
           required: false
           schema:
+            type: array
+            items:
+              type: string
+              enum: [PatientRegistryDataset, BiobankDataset]
+        - name: country
+          description: The country in ISO 3166-1 alpha-2 format (e.g, IT, FR, NL)
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [PatientRegistryDataset, BiobankDataset]
+        - name: name
+          description: The name of the resource or a part of it
+          in: query
+          required: false
+          schema:
             type: string
-            enum: [PatientRegistryDataset, BiobankDataset]
         - name: skip
           description: Number of pages to skip.
           in: query
