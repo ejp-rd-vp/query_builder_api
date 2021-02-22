@@ -67,7 +67,7 @@ paths:
             type: array
             items:
               type: string
-              enum: [PatientRegistryDataset, BiobankDataset]
+              enum: [IT, FR, NL, ...]
         - name: name
           description: The name of the resource or a part of it
           in: query
@@ -226,18 +226,19 @@ components:
           description: The homepage of the resource
           example: "https://www.pcdregistry.eu/"
           format: url
-        publisher:
-          type: object
-          description: The primary organisation responsible for publishing and maintaining the resource
-          $ref: "#/components/schemas/Organization"
         type:
           type: string
           description: The type of the resource.
           example: "PatientRegistryDataset"
-          enum: [
-            "PatientRegistryDataset", 
-            "BiobankDataset"
-          ]
+          enum: [PatientRegistryDataset, BiobankDataset]
+        publisher:
+          type: object
+          description: The primary organisation responsible for publishing and maintaining the resource
+          $ref: "#/components/schemas/Organization"
+        updated:
+          type: Date and Time plus timezone in ISO 8601 format YYYY-MM-DDThh:mm+hh:mm
+          description: Time and date the resource was last updated.
+          example: 2021-01-31T16:33+00:00 
     Organization:
       description: A schema to describe an organisation
       type: object
