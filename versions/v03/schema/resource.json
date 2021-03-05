@@ -1,0 +1,48 @@
+{
+  "$id" : "resource.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Rare disease recource dataset.",
+  "description": "A schema to describe a dataset of patients, cohorts or biomaterials from a resource.",
+  "required": [
+    "@id",
+    "@type",
+    "name",
+    "description",
+    "homepage"
+  ],
+  "properties": {
+    "@id": {
+      "description": "A primary identifier for the resource",
+      "type": "string",
+      "example": "https://www.pcdregistry.eu/"
+    },
+    "@type": {
+      "description": "The primary type for this resource.",
+      "type": "string",
+      "example" : "PatientRegistryDataset",
+      "enum": [
+        "PatientRegistryDataset", "BiobankDataset"
+      ]
+    },
+    "name": {
+      "description": "A name for the resource",
+      "type": "string",
+      "example" : "PDC registry"
+    },
+    "description": {
+      "description": "A description for the resource.",
+      "type": "string",
+      "example" : "PDC registry"
+    },
+    "homepage": {
+      "description": "The homepage of the resource",
+      "type": "string",
+      "example" : "https://www.pcdregistry.eu/",
+      "format" :"url"
+    },
+    "publisher": {
+      "description": "The primary organisation responsible for publishing and maintaining the resource",
+      "$ref": "organisation.json"
+    }
+  }
+}
