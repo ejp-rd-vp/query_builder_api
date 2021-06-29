@@ -4,27 +4,11 @@
   "title": "Rare disease resource catalogue.",
   "description": "Schema to describe a resource that catalogues resources.",
   "required": [
-    "@id",
-    "@type"
+    "title",
+    "organisation"
   ],
   "properties": {
-    "@id": {
-      "description": "A primary identifier for the catalogue",
-      "type": "string",
-      "example": "http://www.orpha.net"
-    },
-    "@type": {
-      "description": "The primary type(s) for this catalogue",
-      "type": "array",
-      "items": {
-        "type": "string",
-        "enum": [
-          "CatalogOfRegistries", "CatalogOfBiobanks"
-        ]
-      },
-      "example": ["CatalogOfRegistries"]
-    },
-    "name": {
+    "title": {
       "description": "A name for the catalogue",
       "type": "string"
     },
@@ -32,7 +16,7 @@
       "description": "A description for the catalogue",
       "type": "string"
     },
-    "homepage": {
+    "page": {
       "description": "The homepage of the catalogue",
       "type": "string",
       "example": "http://www.orpha.net"
