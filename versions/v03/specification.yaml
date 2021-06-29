@@ -43,20 +43,46 @@ paths:
       operationId: "getResourceSearch"
       parameters:
         - name: orphaCode
-          description: "The orphacode of the disease."
+          description: The orphacode of the disease.
           in: query
           required: true
           schema:
+            type: array
+            items:
+              type: string
+        - name: resourceType
+          description: The type of resource the responded results are of, e.g. PatientRegistryDataset.
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [PatientRegistryDataset, BiobankDataset]
+        - name: country
+          description: The country in ISO 3166-1 alpha-2 format (e.g, IT, FR, NL)
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [IT, FR, NL, ...]
+        - name: name
+          description: The name of the resource or a part of it
+          in: query
+          required: false
+          schema:
             type: string
         - name: skip
-          description: Number of pages to skip
+          description: Number of pages to skip.
           in: query
           required: false
           schema:
             type: integer
             format: int32
         - name: limit
-          description: Size of the page
+          description: Size of the page.
           in: query
           required: false
           schema: 
@@ -174,8 +200,6 @@ components:
             $ref: "#/components/schemas/Resource"
         page:
           $ref: "#/components/schemas/Page"
-        error:
-          $ref: "#/components/schemas/ErrorResponse"
     Resource:
       type: object
       required:
@@ -183,7 +207,6 @@ components:
         - type
         - description
         - page
-        - publisher
       properties:
         title:
           type: string
@@ -192,7 +215,8 @@ components:
         type:
           type: string
           description: The type of the resource.
-          example: "Patient registry"
+          example: "PatientRegistryDataset"
+          enum: [PatientRegistryDataset, BiobankDataset]
         description:
           type: string
           description: A description for the resource
@@ -206,6 +230,10 @@ components:
           type: object
           description: The primary organisation responsible for publishing and maintaining the resource
           $ref: "#/components/schemas/Organization"
+        updated:
+          type: Date and Time plus timezone in ISO 8601 format YYYY-MM-DDThh:mm+hh:mm
+          description: Time and date the resource was last updated.
+          example: 2021-01-31T16:33+00:00
     Organisation:
       description: A schema to describe an organisation
       type: object
