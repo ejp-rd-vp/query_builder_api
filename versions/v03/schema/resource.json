@@ -12,7 +12,7 @@
   ],
   "properties": {
     "type": {
-      "description": "The primary type for this resource.",
+      "description": "The primary resource type for this resource.",
       "type": "string",
       "example" : "PatientRegistryDataset",
       "enum": [
@@ -23,6 +23,11 @@
       "description": "A name for the resource",
       "type": "string",
       "example" : "PDC registry"
+    },
+    "theme": {
+      "description": "The rd code theme (ontology) the resource is using.",
+      "type": "string",
+      "example" : "ORDO"
     },
     "description": {
       "description": "A description for the resource.",
