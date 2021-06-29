@@ -3,26 +3,17 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "description": "A schema to describe an organisation",
   "required": [
-    "@id",
-    "name"
+    "title",
+    "location"
   ],
   "title": "Organisation",
   "properties": {
-    "@id": {
-      "description": "A primary identifier for the organisation",
-      "type": "string"
-    },
-    "name": {
+    "title": {
       "description": "A name or short description for the organisation",
       "type": "string",
       "example" : "Orphanet"
     },
-    "description": {
-      "description": "A description for the organiation",
-      "type" : "string",
-      "example": "Orphanet is a unique resource, gathering and improving knowledge on rare diseases"
-    },
-    "homepage": {
+    "page": {
       "description": "The primary URL for the homepage of the organisation",
       "type" : "string",
       "format" : "url",
