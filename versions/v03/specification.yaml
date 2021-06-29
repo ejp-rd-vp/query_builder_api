@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: "0.2"
+  version: "0.3"
   title: "Federated Resource Query API Specification"
   description: >-
     "Federated Resource Query API is a web service for rare disease data sharing 
@@ -179,25 +179,25 @@ components:
     Resource:
       type: object
       required:
-        - id
+        - title
         - type
-        - name
         - description
-        - homepage
+        - page
+        - publisher
       properties:
-        id:
-          type: string
-          description: A primary identifier for the resource
-          example: https://www.pcdregistry.eu/
-        name:
+        title:
           type: string
           description: A name for the resource
           example: PDC registry
+        type:
+          type: string
+          description: The type of the resource.
+          example: "Patient registry"
         description:
           type: string
           description: A description for the resource
           example: PDC registry
-        homepage:
+        page:
           type: string
           description: The homepage of the resource
           example: "https://www.pcdregistry.eu/"
@@ -206,21 +206,14 @@ components:
           type: object
           description: The primary organisation responsible for publishing and maintaining the resource
           $ref: "#/components/schemas/Organization"
-        type:
-          type: string
-          description: The type of the resource.
-          example: "Patient registry"
-    Organization:
+    Organisation:
       description: A schema to describe an organisation
       type: object
       required:
-        - id
-        - name
+        - title
+        - location
       properties:
-        id:
-          type: string
-          description: A primary identifier for the organisation
-        name:
+        title:
           type: string
           description: A name or short description for the organisation
           example: Orphanet
@@ -228,7 +221,7 @@ components:
           type: string
           description: A description for the organiation
           example: Orphanet is a unique resource, gathering and improving knowledge on rare diseases
-        homepage:
+        page:
           type: string
           description: The primary URL for the homepage of the organisation
           format: url
@@ -240,22 +233,16 @@ components:
       description: A schema to describe a location, region or jurisdiction
       type: object
       required:
-        - id
-        - country
+        - code
+        - title
       properties:
-        id:
-          description: A primary identifier for the location
+        code:
+          description: The country in ISO 3166-1 alpha-2 format (e.g, IT, FR, NL)
           type: string
-        city:
-            description: The city of the location
+          enum: [IT, FR, NL, ...]
+        title:
+            description: The country name.
             type: string
-        country:
-          description: The country the location is in
-          type: string
-        region:
-          description: The region the location is in
-          type: string
-          enum: [international, europe]
     Page:
       type: object
       properties:
