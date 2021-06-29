@@ -4,19 +4,14 @@
   "title": "Rare disease recource dataset.",
   "description": "A schema to describe a dataset of patients, cohorts or biomaterials from a resource.",
   "required": [
-    "@id",
-    "@type",
-    "name",
+    "type",
+    "title",
     "description",
-    "homepage"
+    "page",
+    "publisher"
   ],
   "properties": {
-    "@id": {
-      "description": "A primary identifier for the resource",
-      "type": "string",
-      "example": "https://www.pcdregistry.eu/"
-    },
-    "@type": {
+    "type": {
       "description": "The primary type for this resource.",
       "type": "string",
       "example" : "PatientRegistryDataset",
@@ -24,7 +19,7 @@
         "PatientRegistryDataset", "BiobankDataset"
       ]
     },
-    "name": {
+    "title": {
       "description": "A name for the resource",
       "type": "string",
       "example" : "PDC registry"
@@ -34,7 +29,7 @@
       "type": "string",
       "example" : "PDC registry"
     },
-    "homepage": {
+    "page": {
       "description": "The homepage of the resource",
       "type": "string",
       "example" : "https://www.pcdregistry.eu/",
