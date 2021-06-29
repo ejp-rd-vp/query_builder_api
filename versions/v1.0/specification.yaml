@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: "0.3"
+  version: "1.0"
   title: "Federated Resource Query API Specification"
   description: >-
     "Federated Resource Query API is a web service for rare disease data sharing 
