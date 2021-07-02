@@ -42,10 +42,11 @@ paths:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getResourceSearch"
       parameters:
-        - name: orphaCode
-          description: The orphacode of the disease.
+        - name: code
+          description: The rare disease code as full identifier.
           in: query
           required: true
+          example: http://www.orpha.net/ORDO/Orphanet_730
           schema:
             type: array
             items:
