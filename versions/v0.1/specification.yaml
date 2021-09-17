@@ -1,6 +1,6 @@
 openapi: "3.0.0"
 info:
-  version: "1.0"
+  version: "v1"
   title: "Federated Resource Query API Specification"
   description: >-
     "Federated Resource Query API is a web service for rare disease data sharing 
@@ -14,7 +14,7 @@ externalDocs:
   description: "EJP-RD Website"
   url: "https://www.ejprarediseases.org"
 paths:
-  /: 
+  /v1: 
     get:
       description: "Get information about the API."
       operationId: "getInformation"
@@ -40,33 +40,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  #/v1:
-    #get: 
-      #description: "Get information about version 1.0 of the API."
-      #operationId": "getV1Information",
-      #responses": 
-        #"200":
-          #description: "successful operation"
-          #headers:
-          #content:
-            #application/json:
-              #schema:
-                #$ref: "#/components/schemas/InfoResponse"
-        #"404":
-          #description: "not found"
-          #headers:
-          #content:
-            #application/json:
-              #schema:
-                #$ref: "#/components/schemas/ErrorResponse"
-        #default:
-          #description": "unexpected error"
-          #headers:
-          #content:
-            #application/json:
-              #schema:
-                #ref: "#/components/schemas/ErrorResponse"
-  /resource:
+  /v1/resource:
     get:
       description: "Return a list of all listed resources in the catalogue."
       operationId: "getAllResources"
@@ -114,7 +88,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /resource/search?:
+  /v1/resource/search?:
     get:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getResourceSearch"
@@ -521,24 +495,3 @@ components:
         page:
           description: Number of the current page
           type: integer
-
-        
-    #KeyValuePair:
-      #type: object
-      #required:
-        #- key
-        #- value
-      #properties:
-        #key:
-          #type: string
-        #value:
-          #type: string
-    #DataUseConditions:
-      #type: object
-      #required:
-        #- consentCodeDataUse
-      #description: Data use conditions ruling this resource.
-      #properties:
-        #consentCodeDataUse:
-          #$ref: >-
-            #https://raw.githubusercontent.com/ga4gh/ga4gh-consent-policy/806ea53cffacb2055c3639f0fc9783f0dcd8cb02/consent_code.yaml#/components/schemas/ConsentCodeDataUse
