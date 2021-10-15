@@ -14,7 +14,7 @@ externalDocs:
   description: "EJP-RD Website"
   url: "https://www.ejprarediseases.org"
 paths:
-  /v3: 
+  /: 
     get:
       description: "Get information about the API."
       operationId: "getInformation"
@@ -37,7 +37,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/ErrorResponse"
-  /v3/resource/search:
+  /{versionNumber}/resource/search:
     get:
       description: "Get response to a query for a certain rare disease (resources)."
       operationId: "getResourceSearch"
@@ -137,8 +137,8 @@ components:
     InfoResponse:
       type: object
       required:
-        - id
-        - type
+        - name
+        - apiVersions
       properties:
         id:
           description: A primary identifier for the catalogue
@@ -163,15 +163,15 @@ components:
           example: http://www.orpha.net
         organization:
           $ref: "#/components/schemas/Organization"
-        apiVersion:
+        apiVersions:
           type: array
           description: Version of the API the catalogue is providing
           example: v2
           items:
             type: string
+            enum: [v1, v2, v3]
         sampleRequests:
-          description: >-
-            Examples of interesting requests to the catalogue API.
+          description: Examples of requests to the catalogue API.
           type: array
           items:
             type: string
