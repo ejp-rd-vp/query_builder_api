@@ -1,0 +1,23 @@
+{
+  "$id": "location.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "description": "A schema to describe a location, region or jurisdiction",
+  "title": "Location",
+  "required": [
+    "code",
+    "title"
+  ],
+  "properties": {
+    "code": { 
+      "description": "The locations' country code.",
+      "type": "string",
+      "enum": [
+        "DE", "IT", "..."
+      ]
+    },
+    "title": {
+      "description": "The country name.",
+      "type": "string"
+    }
+  }
+}
