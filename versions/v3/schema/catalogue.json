@@ -24,6 +24,13 @@
     "organisation": {
       "$ref": "organisation.json"
     },
+    "resourceTypes": {
+      "description": "Resource types supported by this API.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
     "apiVersion": {
       "type": "string",
       "description": "Version of the API the catalogue is providing.",
