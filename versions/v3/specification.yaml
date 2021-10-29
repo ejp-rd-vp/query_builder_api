@@ -59,7 +59,7 @@ paths:
             type: array
             items:
               type: string
-              enum: [PatientRegistryDataset, BiobankDataset]
+              enum: [PatientRegistryDataset, BiobankDataset, KnowledgeBase]
         - name: country
           description: The country in ISO 3166-1 alpha-2 format (e.g, IT, FR, NL)
           in: query
