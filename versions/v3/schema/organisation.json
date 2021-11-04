@@ -9,19 +9,19 @@
   "title": "Organisation",
   "properties": {
     "title": {
-      "description": "The name of the organisation",
       "type": "string",
+      "description": "The name of the organisation",
       "example" : "Orphanet"
-    },
-    "page": {
-      "description": "The primary URL for the homepage of the organisation",
-      "type" : "string",
-      "format" : "url",
-      "example": "https://www.orpha.net/consor/cgi-bin/index.php"
     },
     "description": {
       "description": "A short description of the organisation.",
+      "type" : "string"
+    },
+    "page": {
       "type" : "string",
+      "description": "The primary URL for the homepage of the organisation",
+      "format" : "url",
+      "example": "https://www.orpha.net/consor/cgi-bin/index.php"
     },
     "location": {
       "description": "Information about the location associated with the organisation",

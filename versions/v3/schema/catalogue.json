@@ -4,41 +4,64 @@
   "title": "Rare disease resource catalogue.",
   "description": "Schema to describe a resource that catalogues resources.",
   "required": [
-    "title",
-    "organisation"
+    "name",
+    "apiVersions",
+    "resourceTypes"
   ],
   "properties": {
-    "title": {
-      "description": "A name for the catalogue",
-      "type": "string"
+    "id": {
+      "type": "string",
+      "description": "The id of the catalogue",
+      "example": "http://www.orpha.net"
+    },
+    "name": {
+      "type": "string",
+      "description": "A name for the catalogue"
     },
     "description": {
-      "description": "A description for the catalogue",
-      "type": "string"
-    },
-    "page": {
-      "description": "The homepage of the catalogue",
       "type": "string",
+      "description": "A description of the catalogue"
+    },
+    "homepage": {
+      "type": "string",
+      "description": "The homepage of the catalogue",
       "example": "http://www.orpha.net"
     },
     "organisation": {
       "$ref": "organisation.json"
     },
-    "resourceTypes": {
-      "description": "Resource types supported by this API.",
+    "apiVersions": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
-    }
-    "apiVersion": {
-      "type": "string",
       "description": "Version of the API the catalogue is providing.",
-      "example": "v0.1"
+      "items": {
+        "type": "string",
+        "enum": [
+          "v1",
+          "v2",
+          "v3"
+        ]
+      },
+      "example": ["v2", "v3"]
+    },
+    "resourceTypes": {
+      "type": "array",
+      "description": "List of resource types supported by this API.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "PatientRegistryDataset",
+          "BiobankDataset",
+          "KnowledgeBase"
+        ]
+      },
+      "example": [
+        "PatientRegistryDataset",
+        "BiobankDataset"
+      ]
     },
     "sampleRequests": {
-      "description": "Examples of interesting requests to the catalogue API.",
       "type": "array",
+      "description": "Examples of interesting requests to the catalogue API.",
       "items": {
         "type": "string"
       }

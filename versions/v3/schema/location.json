@@ -11,9 +11,7 @@
     "code": { 
       "description": "The locations' country code.",
       "type": "string",
-      "enum": [
-        "DE", "IT", "..."
-      ]
+      "enum": ["IT", "FR", "NL", "..."]
     },
     "title": {
       "description": "The country name.",
