@@ -139,18 +139,12 @@ components:
       required:
         - name
         - apiVersions
+        - resourceTypes
       properties:
         id:
           description: A primary identifier for the catalogue
           type: string
-          example: http://www.orpha.net"
-        type:
-          description: The primary type(s) for this catalogue
-          type: array
-          items:
-            type: string
-            enum: [CatalogOfRegistries, CatalogOfBiobanks]
-          example: [CatalogOfRegistries]
+          example: "http://www.orpha.net"
         name:
           type: string
           description: A name for the catalogue
@@ -158,21 +152,37 @@ components:
           type: string
           description: A description for the catalogue
         homepage:
-          description: The homepage of the catalogue
           type: string
-          example: http://www.orpha.net
-        organization:
-          $ref: "#/components/schemas/Organization"
+          description: The homepage of the catalogue
+          example: "http://www.orpha.net"
+        organisation:
+          $ref: "#/components/schemas/Organisation"
         apiVersions:
           type: array
           description: Version of the API the catalogue is providing
-          example: v2
           items:
             type: string
-            enum: [v1, v2, v3]
+            enum:
+              - v1
+              - v2
+              - v3
+          example: [v2, v3]
+        resourceTypes:
+          type: "array"
+          description: "List of resource types supported by this API.",
+          items:
+            type: "string"
+            enum:
+              - "PatientRegistryDataset"
+              - "BiobankDataset"
+              - "KnowledgeBase"
+          example: [
+            "PatientRegistryDataset",
+            "BiobankDataset"
+          ]
         sampleRequests:
-          description: Examples of requests to the catalogue API.
           type: array
+          description: Examples of requests to the catalogue API.
           items:
             type: string
     ErrorResponse:
@@ -206,12 +216,16 @@ components:
     Resource:
       type: object
       required:
-        - title
+        - name
         - type
         - description
         - page
+        - publisher
       properties:
-        title:
+        id:
+          type: string
+          description: The primary identifier of the resource in the catalogue
+        name:
           type: string
           description: A name for the resource
           example: PDC registry
@@ -219,7 +233,10 @@ components:
           type: string
           description: The type of the resource.
           example: "PatientRegistryDataset"
-          enum: [PatientRegistryDataset, BiobankDataset]
+          enum:
+            - PatientRegistryDataset
+            - BiobankDataset
+            - KnowledgeBase
         description:
           type: string
           description: A description for the resource
@@ -232,10 +249,11 @@ components:
         publisher:
           type: object
           description: The primary organisation responsible for publishing and maintaining the resource
-          $ref: "#/components/schemas/Organization"
+          $ref: "#/components/schemas/Organisation"
         updated:
-          type: Date and Time plus timezone in ISO 8601 format YYYY-MM-DDThh:mm+hh:mm
+          type: string
           description: Time and date the resource was last updated.
+          format: date-time
           example: 2021-01-31T16:33+00:00
     Organisation:
       description: A schema to describe an organisation

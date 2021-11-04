@@ -1,28 +1,32 @@
 {
   "$id" : "resource.json",
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Rare disease recource dataset.",
+  "title": "Rare disease resource dataset.",
   "description": "A schema to describe a dataset of patients, cohorts or biomaterials from a resource.",
   "required": [
+    "name",
     "type",
-    "title",
     "description",
     "page",
     "publisher"
   ],
   "properties": {
+    "id": {
+      "description": "The primary identifier of the resource in the catalogue",
+      "type": "string"
+    },
+    "name": {
+      "description": "A name for the resource",
+      "type": "string",
+      "example" : "PDC registry"
+    },
     "type": {
       "description": "The primary resource type for this resource.",
       "type": "string",
       "example" : "PatientRegistryDataset",
       "enum": [
-        "PatientRegistryDataset", "BiobankDataset"
+        "PatientRegistryDataset", "BiobankDataset", "KnowledgeBase"
       ]
-    },
-    "title": {
-      "description": "A name for the resource",
-      "type": "string",
-      "example" : "PDC registry"
     },
     "theme": {
       "description": "The rd code theme (ontology) the resource is using.",
@@ -43,6 +47,12 @@
     "publisher": {
       "description": "The primary organisation responsible for publishing and maintaining the resource",
       "$ref": "organisation.json"
+    },
+    "updated": {
+      "type": "string",
+      "description": "Time and date the resource was last updated",
+      "format": "date-time",
+      "example": "2021-01-31T16:33+00:00"
     }
   }
 }
