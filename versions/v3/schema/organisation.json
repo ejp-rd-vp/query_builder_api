@@ -8,7 +8,7 @@
   ],
   "title": "Organisation",
   "properties": {
-    "title": {
+    "name": {
       "type": "string",
       "description": "The name of the organisation",
       "example" : "Orphanet"
@@ -17,7 +17,7 @@
       "description": "A short description of the organisation.",
       "type" : "string"
     },
-    "page": {
+    "homepage": {
       "type" : "string",
       "description": "The primary URL for the homepage of the organisation",
       "format" : "url",

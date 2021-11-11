@@ -9,12 +9,12 @@
   ],
   "properties": {
     "code": { 
-      "description": "The locations' country code.",
+      "description": "The locations' country code",
       "type": "string",
       "enum": ["IT", "FR", "NL", "..."]
     },
     "title": {
-      "description": "The country name.",
+      "description": "The country name",
       "type": "string"
     }
   }

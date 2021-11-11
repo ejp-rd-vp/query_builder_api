@@ -169,7 +169,7 @@ components:
           example: [v2, v3]
         resourceTypes:
           type: "array"
-          description: "List of resource types supported by this API.",
+          description: "List of resource types supported by this API."
           items:
             type: "string"
             enum:
@@ -241,7 +241,7 @@ components:
           type: string
           description: A description for the resource
           example: PDC registry
-        page:
+        homepage:
           type: string
           description: The homepage of the resource
           example: "https://www.pcdregistry.eu/"
@@ -259,10 +259,9 @@ components:
       description: A schema to describe an organisation
       type: object
       required:
-        - title
-        - location
+        - name
       properties:
-        title:
+        name:
           type: string
           description: A name or short description for the organisation
           example: Orphanet
@@ -270,7 +269,7 @@ components:
           type: string
           description: A description for the organiation
           example: Orphanet is a unique resource, gathering and improving knowledge on rare diseases
-        page:
+        homepage:
           type: string
           description: The primary URL for the homepage of the organisation
           format: url
