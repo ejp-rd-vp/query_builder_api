@@ -1,0 +1,65 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "description": "A resource available in the catalog",
+    "$comment": "EJPRD Resource Resource Metadata Schema",
+    "type": "object",
+    "properties": {
+        "@context": {
+            "type": "string",
+            "format": "uri",
+            "description": "The EJPRD context (i.e, JSON-LD context) containing the semantic definition of the properties in this schema",
+            "const": "https://raw.githubusercontent.com/ejp-rd-vp/vp-api-specs/main/json-ld-contexts/resouces-context.json"
+        },
+        "@id": {
+            "type": "string",
+            "description": "Unique identifier of the resource. It has the same meaning as @id in JSON-LD"
+        },
+        "@type": {
+            "$ref": "https://raw.githubusercontent.com/ga4gh-beacon/beacon-v2/main/framework/json/common/ontologyTerm.json",
+            "description": "The type of resource. It has the same meaning as in JSON-LD. ",
+            "examples": [{
+                "id": "ejprd:Biobank"
+            }]
+        },
+        "title": {
+            "type": "string",
+            "description": "Name of the resource",
+            "examples": [
+                "Bank of muscular disease"
+            ]
+        },
+        "description": {
+            "type": "string",
+            "description": "Description of the resource"
+        },
+        "version": {
+            "type": "string",
+            "description": "Version of the resource",
+            "examples": [
+                "v1.1"
+            ]
+        },
+        "landingPage": {
+            "type": "string",
+            "format": "uri",
+            "description": "A Web page that can be navigated to in a Web browser to gain access to the "
+        },
+        "personalData": {
+            "type": "string",
+            "description": "Whether the resource handles personal data or not",
+            "enum": [
+                "true",
+                "false"
+            ]
+        }
+    },
+    "required": [
+        "@context",
+        "@id",
+        "@type",
+        "title",
+        "personalData"
+
+    ],
+    "additionalProperties": true
+}

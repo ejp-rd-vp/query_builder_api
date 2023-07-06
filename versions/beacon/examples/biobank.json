@@ -1,0 +1,11 @@
+{
+    "@context": "https://raw.githubusercontent.com/ejp-rd-vp/vp-api-specs/main/json-ld-contexts/resouces-context.json",
+    "@id": "bbmri:eric-biobank-1:collection:collection_1",
+    "@type": {
+        "id": "ejprd:Biobank"
+    },
+    "title": "Rare Disease Biobank",
+    "description": "Rare disease biobank with data about muscular distrophy",
+    "landingPage": "http://biobank.raredisease.org",
+    "personalData": "true"
+}
