@@ -6,8 +6,7 @@
         "ejprd": "http://purl.org/ejp-rd/vocabulary/",
         "title": {
             "@id": "dct:title",
-            "@type": "xsd:string"
-            
+            "@type": "xsd:string"            
         },
         "description": {
             "@id": "dct:title",

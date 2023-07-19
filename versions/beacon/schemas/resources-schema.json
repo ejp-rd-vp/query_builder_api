@@ -7,8 +7,8 @@
         "@context": {
             "type": "string",
             "format": "uri",
-            "description": "The EJPRD context (i.e, JSON-LD context) containing the semantic definition of the properties in this schema",
-            "const": "https://raw.githubusercontent.com/ejp-rd-vp/vp-api-specs/main/json-ld-contexts/resouces-context.json"
+            "description": "The EJPRD context (i.e, JSON-LD context) containing the semantic definition of the properties in this schema",                      
+            "const": "https://raw.githubusercontent.com/ejp-rd-vp/query_builder_api/feat/beacon_version/versions/beacon/json-ld-contexts/resources-context.json"
         },
         "@id": {
             "type": "string",
